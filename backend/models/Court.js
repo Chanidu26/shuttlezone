@@ -7,8 +7,19 @@ const CourtSchema = new mongoose.Schema(
       required: true,
     },
     location: {
-      type: String,
-      required: true,
+      type: {
+        type: String, // "Point"
+        enum: ['Point'],
+        required: true,
+      },
+      coordinates: {
+        type: [Number], // [longitude, latitude]
+        required: true,
+      },
+      address: {
+        type: String,
+        required: true,
+      },
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
