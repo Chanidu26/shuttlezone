@@ -151,5 +151,46 @@ export const deleteBooking = async (req, res, next) => {
     }
 };
 
+export const getAvailableCourts = async (req, res, next) => {  
+    // Get available courts for the given date and time slot
+    try {
+        const { date, timeSlot } = req.query;
+
+    // Find courts that are not booked for the given date and time slot
+    const availableCourts = await Court.find({
+        bookings: { 
+            // Check if the court is not booked for the given date and time slot
+            $not: {
+                // elemMatch is used to check if the court is booked for the given date and time slot
+                $elemMatch: { date: date, timeSlot: timeSlot }
+            }
+        }
+    });
+
+    return res.status(200).json(availableCourts);
+    } catch (error) {
+        next(error);
+    }   
+};
+
+export const getCourtDetails = async (req, res, next) => {
+    try {
+        // req.params contains the courtId
+        const courtId = req.params.courtId;
+        // find the court by that id
+        const court = await Court.findById(courtId);
+
+        // if the court is not found, return an error
+        if (!court) {
+            return next(createError(404, "Court not found"));
+        }
+
+        // if the court is found, return the court
+        return res.status(200).json(court);
+
+    } catch (error) {
+        return next(error);
+    }
+}
 
 
