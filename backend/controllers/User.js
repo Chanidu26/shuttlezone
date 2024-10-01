@@ -61,6 +61,7 @@ export const UserLogin = async (req, res, next) => {
       expiresIn: "9999 years",
     });
     return res.status(200).json({ token, user: existingUser });
+    
   } catch (error) {
     return next(error);
   }

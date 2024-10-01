@@ -1,0 +1,280 @@
+.container{
+    display: flex;
+    width:1270px;
+    height:510px;
+    
+    flex-direction: column;
+    margin:auto;
+   
+    background-color:#E5E5E5 ;
+    padding-bottom:100px ;  
+    overflow: hidden; 
+}
+input{
+  padding: 7px;
+  width:100px;
+  border:none;
+  border-radius: 10px;
+  
+}
+.left-container{
+    display: flex;
+    margin-top: 50px;
+    width:400px;
+    height:1000px;
+    flex-direction: column;
+    margin-left: 750px;
+    background-color:#E5E5E5;
+    
+}
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    margin-top: 10px;
+}
+
+
+.text{
+font-size: 30px;
+font-weight: 700;
+align-items: center;
+
+
+}
+.inputs{
+margin-top: 30px;
+align-items: center;
+display: flex;
+flex-direction: column;
+padding-right: 10px;
+
+
+
+
+.input{
+    display: flex;
+    align-items: center;
+    margin:none;
+    width:200px;
+    height: 20;
+    background-color:white;
+    border: none;
+    
+    
+    
+  
+}
+.text2{
+    margin-top: 20px;
+    font-size: 15px;
+    font-family:poppins;
+    font-weight: 400;
+    padding-right: 144px;
+    
+
+}
+}
+.forgot-password{
+    padding-left: 190px;
+    margin-top: 10px;
+    font-size :10px;
+    font-weight: 1000;
+    cursor: pointer;
+    align-items: center;
+}
+.submit-container{
+    display:flex;
+    margin-top: 50px;
+    padding-left: 150px;
+    
+
+}
+.submit{
+    display: flex;
+    justify-content: center;
+    color: white;
+    align-items:center;
+    height: 50px;
+    width:100px;
+    background-color: #09663F;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+
+    
+}
+.signuptext{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  .linksignup{
+    color: #09663F;
+    font-weight: 700;
+  }
+   
+}
+.signup{
+       
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    color: #09663F;
+    
+
+    
+    
+}
+
+/*.right-container {
+    display: flex;
+    flex-direction: column;
+    /*position: relative;
+    width: 100px; 
+    height: 1000px; 
+    overflow: hidden;
+    
+  }*/
+.background_img {
+   
+    height:850px;
+    width:1050px;
+ 
+  
+  
+    transform:translate(-450px, -650px) rotate(18deg); /* Rotate the image by -10 degrees */
+    
+  }
+
+.firstcontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 39px;
+    margin-top: 20px;
+    
+    width: 400px;
+    height: 1px;
+    background-color: black;
+
+    .divider{
+        justify-items: center;
+        background-color: #E5E5E5;
+        align-items: center;
+        margin-top: -10px;
+        
+    }
+  }
+/*
+.google-login,
+.facebook-login {
+  width: 300px;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #f1f1f1;
+  color: #000000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+ 
+  
+}*/
+.google-login,
+.facebook-login {
+  width: 300px;
+  padding: 0px;
+  margin-top: 10px;
+  background-color:#E5E5E5;
+  color: #000000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Align items vertically center */
+  justify-content: center; /* Center text horizontally */
+}
+
+.google-login, .icon1 {
+  margin-right: 30px; /* Space between the icon and the text */
+}
+.facebook-login, .icon2{
+  
+  margin-right: 7px;
+}
+.facebook-login svg{
+  width: 20px; /* Adjust icon size if necessary */
+  height: 20px;
+  padding-left: 9px;
+  color: #0056e0;
+  
+}
+.google-login svg {
+  width: 20px; /* Adjust icon size if necessary */
+  height: 20px;
+  padding-right: -1px;
+  color: #d71717;
+  
+}
+.glogo{
+  color:linear-gradient(to right, #4285F4, #34A853, #FBBC05, #EA4335);
+  
+}
+.textg{
+  display: flex;
+  flex-direction: column;
+}
+.textf{
+  padding-left:20px;
+  
+}
+
+
+continuewith{
+  justify-content: center;
+   
+}
+
+.text-overlay1{
+    position: absolute;
+    
+    top: 0%;
+    left: 28%;
+    /*transform: translate(-10%, -20%);*/
+    color: white;
+    text-align: right;
+  }
+  
+  .text-overlay1 h1 {
+    font-size: 80px;
+    font-weight: 800;
+    margin: 0 ;
+    
+  }
+  
+
+  .text-overlay2{
+    position: absolute;
+    
+    top: 70%;
+    right:70%;
+    /*transform: translate(-10%, -20%);*/
+    color: white;
+    text-align: center;
+   
+  }
+  
+  
+  .text-overlay2 p {
+    
+    font-size: 30px;
+    margin: 10px 0 0 0;
+    font-weight: 400;
+  }
+  
+
