@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+  }
+  
+  .landing-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .header-landing {
+    background-color: #222;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .nav-links a {
+    color: white;
+    margin-left: 1.5rem;
+    text-decoration: none;
+  }
+  
+  .nav-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .hero {
+    
+    background-size: cover;
+    background-position: center;
+    color: black;
+    text-align: center;
+    padding: 5rem 1rem;
+    flex-grow: 1;
+  }
+  
+  .hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .cta-button {
+    background-color: #09663F;
+    color: white;
+    padding: 1rem 3rem;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    
+    
+  }
+  
+  .cta-button:hover {
+    background-color: #3d3733;
+  }
+  
+  .about-section,
+  .features-section,
+  .contact-section {
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+  
+  .footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+  }
+  

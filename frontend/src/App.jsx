@@ -1,11 +1,13 @@
 //import logo from './logo.svg';
 import './App.css';
-
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 //import Passwordresetc from './Pages/Passwordresetc';
 //import Passwordreset from './Pages/Passwordreset';
-//import Signup from './Pages/Signup';
+import Signup from './Pages/Signup';
 //import Login from './Pages/Login';
 import Login from './Pages/Log';
+import Home from './Pages/Home';
+import Landing from './Pages/Landing';
 
 /*import {
   createBrowserRouter,
@@ -47,9 +49,15 @@ const router = createBrowserRouter([
 ]);*/
 const App=() =>{
   return (
-    <div >
-      <Login/>
-    </div>
+    
+
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/Login" element={<Login />} />
+      <Route path="/Signup" element={<Signup />} />
+      <Route path="/Home" element={<Home />} />
+    </Routes>
+  
   );
 }
 
