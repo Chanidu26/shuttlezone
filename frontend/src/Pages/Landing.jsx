@@ -6,7 +6,7 @@ const Landing = () => {
     <div className="landing-page">
       <header className="header-landing">
         <div className="logo">ShuttleZone</div>
-        <nav className="nav-links">
+        <nav className="landing-nav-links">
           <a href="/Login">Login</a>
           <a href="/Signup">Signup</a>
           

@@ -23,13 +23,13 @@ body {
     font-size: 1.5rem;
   }
   
-  .nav-links a {
+  .landing-nav-links a {
     color: white;
     margin-left: 1.5rem;
     text-decoration: none;
   }
   
-  .nav-links a:hover {
+  .landing-nav-links a:hover {
     text-decoration: underline;
   }
   

@@ -56,7 +56,7 @@ const Signup = () => {
         text: "Press 'OK' to redirect to Home Page",
         icon: "success",
       }).then(results => {
-        window.location.href = '/home';
+        window.location.href = '/Login';
       });
 
     } catch (error) {

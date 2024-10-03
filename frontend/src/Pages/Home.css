@@ -1,0 +1,123 @@
+body {
+    margin: 0; /* Removes the default margin */
+    padding: 0; /* Removes default padding */
+  }
+  .fullcontainer {
+    
+    height: 100px; 
+    max-width: 1450px; 
+    
+    
+  }
+  
+  .home-container {
+    width: 80%; 
+    max-width: 750px;
+    background-color: #E3F5E4;
+    justify-content: center;
+    margin: 50px auto; 
+    padding: 1px;
+    border-radius: 70px;
+  }
+  .search-icon{
+    font-size: 30px;
+    color: gray;
+    margin-right: 400px;
+    margin-top: 28px;
+  }
+  .search-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: -10px;
+    
+  }
+  
+  .search-content {
+    font-size: 30px;
+    color: darkgrey;
+    padding: 10px;
+    
+    margin-left: 170px;
+    margin-top: 10px;
+    margin-right: -60px;
+    
+  }
+  
+  .img1 {
+    color: rgb(157, 152, 152);
+    font-size: 24px;
+    margin-right: 200px;
+  }
+  
+  .court-image {
+    border-radius: 10px;
+    margin-right: 1px;
+    height: 200px;
+    width: 100%;
+    object-fit: cover; 
+  }
+  
+  .court-info {
+    margin-left: 10px; 
+  }
+  
+  .court-stars {
+    color: rgb(237, 229, 0);
+    height: 30px;
+  }
+  
+  .court-card {
+    width: 100%; 
+    max-width: 250px; 
+    height: 350px;
+    margin-top: 20px;
+    
+    border: 1px solid #006400;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .court-title {
+    color: #006400;
+  }
+  
+  .court-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px; 
+    justify-items: center; 
+    padding: 0 20px; 
+    margin-bottom: -300px;
+  }
+  
+  .search-box {
+    background-color: #E3F5E4;
+    
+    font-size: 20px; 
+    color: white; 
+    padding: 0px; 
+    border: none; 
+    border-radius: 5px; 
+    margin-top: 20px;
+    width: 400px;
+    margin-left: -40px;
+  }
+  
+  .search-box::placeholder {
+    color: lightgrey; 
+    font-size: 28px;
+    margin-top: 10px;
+    margin-left: 10px;
+    
+  
+  }
+  .search-box{
+    color: black;
+    outline: none;
+  }
+  
