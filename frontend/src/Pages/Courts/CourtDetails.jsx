@@ -84,13 +84,13 @@ const CourtDetails = () => {
       {/* Additional Court Details */}
       <div className="mt-10">
         <h3 className="text-2xl font-semibold mb-4">Court Details</h3>
-        <p className="text-lg text-gray-600 mb-2">
+        <p className="text-lg text-gray-600 mb-1">
           Location: 123 Sports Complex, City Centre
         </p>
-        <p className="text-lg text-gray-600 mb-2">
+        <p className="text-lg text-gray-600 mb-1">
           Price: $20 per hour
         </p>
-        <p className="text-lg text-gray-600 mb-2">
+        <p className="text-lg text-gray-600 mb-1">
           Available Times: 9:00 AM - 9:00 PM in Every Day 
         </p>
       </div>
