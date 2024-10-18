@@ -4,7 +4,7 @@ import { AiFillStar } from 'react-icons/ai'
 const Feedback = () => {
   return (
     <div className=''>
-        <div className='mb-[50px] pt-4 '>
+        <div className='mb-[50px] pt-6 '>
             <h4 className='text-[20px] leading-[30px] font-bold text-headingColor mb-[30px]'>
                 All Reviews
             </h4>
