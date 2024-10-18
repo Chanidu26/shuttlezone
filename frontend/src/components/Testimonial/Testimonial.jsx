@@ -8,7 +8,7 @@ import { HiStar } from 'react-icons/hi';
 import avatar from '../../assets/images/avatar-icon.png';
 const Testimonial = () => {
   return (
-    <div className='mt-[30px] lg:mt-[55px]'>
+    <div className='lg:mt-[25px]'>
         <Swiper modules={[Pagination]} spaceBetween={30}  slidesPerView={1} pagination={{ clickable: true }}
            breakpoints = {{
             640:{

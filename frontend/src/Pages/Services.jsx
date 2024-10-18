@@ -3,7 +3,7 @@ import ServiceList from '../components/Services/ServiceList'
 
 const Services = () => {
   return (
-    <section className='pt-5'>
+    <section className='pt-0'>
       <div className='container'>
         <div className='xl:w-[470px] mx-auto'>
           <h2 className='heading text-center '>
