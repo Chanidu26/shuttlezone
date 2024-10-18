@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  font-family: 'Manrope', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.swiper-pagination-bullet{
+  width: 12px !important;
+  height: 12px !important;
+  border: 1px solid black !important;
+  opacity: 100%;
+  background: white !important;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.swiper-pagination-bullet-active{
+  background: #09663f !important;
+  border: none !important; 
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.swiper{
+  padding-bottom: 70px !important;
+}
+.swiper-slide.swiper-slide-next{
+  background : #09663f;
+  border-radius:12px;
+  box-shadow: 0px 20px 30px ;
+}
+.swiper-slide.swiper-slide-next h4,
+.swiper-slide.swiper-slide-next p{
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.swiper-pagination{
+  top:90% !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.sticky_header{
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  background: white;
+  box-shadow: 3px 3px -8px 3px white;
+}
+
+@media only screen and (max-width: 768px) {
+  .navigation{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: #00000084;
+    display: none;
   }
-  to {
-    transform: rotate(360deg);
+
+  .menu {
+    width: 15rem;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #fff;
+    z-index: 200;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 30px;
   }
+
+  .show_menu{
+    display: block;
+
+  }
+  
 }
