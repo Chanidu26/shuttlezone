@@ -1,9 +1,33 @@
 import React from 'react'
 import signupImg from '../assets/images/signup.gif'
 import { useState } from 'react'
+import axios from 'axios'
+//import baseurl
+const baseUrl = process.env.REACT_APP_API_BASE_URL
 const Signup = () => {
   const [email,setEmail] = useState('')
+  const [name,setName] = useState('')
   const [password,setPassword] = useState('')
+
+  const register = async (e) => {
+    const user = {name, email, password}
+    try{
+      await axios.post(`${baseUrl}/api/user/signup`, user).then((res) => {
+        if (res.data) {
+          localStorage.setItem("currentUser", JSON.stringify(res.data));
+      }
+      })
+      setEmail('')
+      setName('')
+      setPassword('')
+      alert('User registered successfully')
+      window.location.href = '/login'
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+  
   return (
     <section className='px-5 xl:px-0 pt-6'>
       <div className='max-w-[1000px] mx-auto'>
@@ -23,8 +47,8 @@ const Signup = () => {
                    <label className="font-semibold text-sm text-gray-600 block">Name</label>
                    <input
                     type="text"
-                    value=""
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="w-full p-3 border border-gray-300 rounded mt-1 focus:ring-2 focus:ring-indigo-500"
                     placeholder="Enter your name"
                   />
@@ -33,7 +57,7 @@ const Signup = () => {
                    <label className="font-semibold text-sm text-gray-600 block">Email</label>
                    <input
                     type="email"
-                    value=""
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full p-3 border border-gray-300 rounded mt-1 focus:ring-2 focus:ring-indigo-500"
                     placeholder="Enter your email"
@@ -50,7 +74,7 @@ const Signup = () => {
                    />
                 </div>
 
-                <button type="submit" className="w-full bg-primaryColor text-white p-3 rounded-lg">
+                <button onClick={register} type="submit" className="w-full bg-primaryColor text-white p-3 rounded-lg">
                  Register
                 </button>
               </form>
