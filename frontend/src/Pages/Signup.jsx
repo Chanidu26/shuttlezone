@@ -10,6 +10,7 @@ const Signup = () => {
   const [password,setPassword] = useState('')
 
   const register = async (e) => {
+    e.preventDefault()
     const user = {name, email, password}
     try{
       await axios.post(`${baseUrl}/api/user/signup`, user).then((res) => {

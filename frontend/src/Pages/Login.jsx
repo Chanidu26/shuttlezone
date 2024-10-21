@@ -5,6 +5,26 @@ const baseURL = process.env.REACT_APP_API_BASE_URL;
 const Login = () => {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
+
+  async function login() {
+    const user = {email, password}
+    try{
+      await axios.post(`${baseURL}/api/user/signin`, user).then((res) => {
+        if (res.data) {
+          localStorage.setItem("currentUser", JSON.stringify(res.data));
+          
+        }
+      })
+      setEmail('')
+      setPassword('')
+      alert('User logged in successfully')
+      window.location.href = '/'
+      
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
   
   return (
     <section className='pt-5'>
@@ -34,7 +54,7 @@ const Login = () => {
                 placeholder="Enter your password"
               />
             </div>
-            <button type="submit" className="w-full bg-primaryColor text-white p-3 rounded-lg">
+            <button onClick={login} type="submit" className="w-full bg-primaryColor text-white p-3 rounded-lg">
               Login
             </button>
           </form>
