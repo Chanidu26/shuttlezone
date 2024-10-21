@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 import userImg from '../../assets/images/avatar-icon.png'
+import MyBookings from './MyBookings'
+import Profile from './Profile'
 const MyAccount = () => {
-    const [tab, setTab] = useState("bookings")
+  const [tab, setTab] = useState("bookings")
   return (
     <div className='max-w-[1170px] px-5 mx-auto'>
         <div className='grid md:grid-cols-3 gap-10'>
@@ -48,13 +50,16 @@ const MyAccount = () => {
                  </button>
 
                  <button
-                  onClick={() => setTab("profile")}
+                  onClick={() => setTab("settings")}
                   className={`py-2 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7
                   border border-solid border-primaryColor
-                  ${tab === "profile" ? "bg-primaryColor text-white" : "bg-white"}`}>
+                  ${tab === "settings" ? "bg-primaryColor text-white" : "bg-white"}`}>
                   Profile Settings
                   </button>
                 </div>
+
+                {tab === "bookings" && <MyBookings/>}
+                {tab === "settings" && <Profile/>}
             </div>
         </div>
     </div>
