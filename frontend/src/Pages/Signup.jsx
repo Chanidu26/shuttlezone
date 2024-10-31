@@ -2,30 +2,40 @@ import React from 'react'
 import signupImg from '../assets/images/signup.gif'
 import { useState } from 'react'
 import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
+import {toast} from 'react-toastify'
 //import baseurl
 const baseUrl = process.env.REACT_APP_API_BASE_URL
 const Signup = () => {
   const [email,setEmail] = useState('')
   const [name,setName] = useState('')
   const [password,setPassword] = useState('')
-
+  const navigate = useNavigate()
   const register = async (e) => {
     e.preventDefault()
-    const user = {name, email, password}
+    const user = {name,email,password}
     try{
-      await axios.post(`${baseUrl}/api/user/signup`, user).then((res) => {
-        if (res.data) {
-          localStorage.setItem("currentUser", JSON.stringify(res.data));
-      }
+      const res = await fetch(`${baseUrl}/api/user/signup`,{
+        method: 'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify(user),
       })
-      setEmail('')
-      setName('')
-      setPassword('')
-      alert('User registered successfully')
-      window.location.href = '/login'
+
+      const result = await res.json()
+      if(!res.ok){
+        throw new Error(result.message)
+      }
+      /*toast.success(result.message)*/
+      toast.success("Registration Successfull")
+      navigate('/login')
+      
+      
     }
     catch(err){
-      console.log(err)
+      toast.error(err.message || "Invalid Credential")
+     
     }
   }
   

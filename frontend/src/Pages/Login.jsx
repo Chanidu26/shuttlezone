@@ -1,24 +1,44 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios';
+import { Link , useNavigate} from "react-router-dom"
+import {toast} from 'react-toastify'
+import {authContext} from '../context/AuthContext.jsx'
 const baseURL = process.env.REACT_APP_API_BASE_URL;
+
 
 const Login = () => {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
-
-  async function login() {
+  const navigate = useNavigate()
+  const { dispatch } = useContext(authContext)
+  const login = async (e) => {
+    e.preventDefault()
     const user = {email, password}
     try{
-      await axios.post(`${baseURL}/api/user/signin`, user).then((res) => {
-        if (res.data) {
-          localStorage.setItem("currentUser", JSON.stringify(res.data));
-          
-        }
-      })
-      setEmail('')
-      setPassword('')
-      alert('User logged in successfully')
-      window.location.href = '/'
+      const res = await fetch(`${baseURL}/api/user/signin`,{
+        method: 'POST',
+        headers :{
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+
+      const result = await res.json()
+
+      if(!res.ok){
+        throw new Error(result.message)
+      }
+      dispatch({
+        type : 'LOGIN_SUCCESS',
+        payload:{
+          user:result.user,
+          token:result.token
+        },
+      });
+      console.log(result)
+      localStorage.setItem('name',result.user.name)
+      toast.success("Login successful")
+      navigate('/home')
       
     }
     catch(err){

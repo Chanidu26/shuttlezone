@@ -14,6 +14,7 @@ import About from '../components/About/About'
 import ServiceList from '../components/Services/ServiceList'
 import Testimonial from '../components/Testimonial/Testimonial'
 const Home = () => {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   return (
     <>
     {/* hero section */}
@@ -26,8 +27,8 @@ const Home = () => {
             <h1 className='text-[36px] leading-[46px] text-white font-[800] md:text-[55px] md:leading-[70px]'>
             Super Easy Badminton Court Bookings Await!
             </h1>
-            <p className='text_para'>
-              
+            <p  className='text_para text-white'>
+              {currentUser.name}
             </p>
 
             <button className='btn'>Book a Court Now</button>
@@ -37,7 +38,7 @@ const Home = () => {
             <div>
               <h2 className='text-[36px] leading-[56px] lg:text-[30px] lg:leading-[54px] font-[700]
                text-white'>300+</h2>
-               <span className='w-[100px] h-2 bg-yellowColor rounded-full block mt-[-14px]'></span>
+               <span className='w-[100px] h-2 bg-red-700 Crounded-full block mt-[-14px]'></span>
                <p className='text_para'>Courts</p>
             </div>
 
