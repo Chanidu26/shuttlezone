@@ -1,9 +1,10 @@
-import { Children, useReducer } from "react";
+import { Children, useEffect, useReducer } from "react";
 import { createContext, useContext } from "react";
+import { json } from "react-router-dom";
 
 const initialState = {
-    user:null,
-    token:null
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
+    token: localStorage.getItem('token') || null
 
 }
 export const authContext = createContext(initialState)
@@ -32,8 +33,15 @@ const authReducer = (state,action)=>{
 
 export const AuthContextProvider = ({children})=>{
     const [state,dispatch] = useReducer(authReducer,initialState)
-
-    return <authContext.Provider value={{user:state.user,token:state.token,dispatch}}>
+    useEffect(()=>{
+        localStorage.setItem('user',JSON.stringify(state.user))
+        localStorage.setItem('token',state.token)
+    }, [state])
+    return <authContext.Provider 
+    value={{
+        user:state.user,
+        token:state.token,
+        dispatch}}>
         {children}
     </authContext.Provider>
 }

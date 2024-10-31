@@ -35,8 +35,8 @@ const Login = () => {
           token:result.token
         },
       });
+      
       console.log(result)
-      localStorage.setItem('name',result.user.name)
       toast.success("Login successful")
       navigate('/home')
       

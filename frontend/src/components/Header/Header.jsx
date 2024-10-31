@@ -75,19 +75,23 @@ const Header = () => {
 
 
              <div className='flex items-center gap-4'>
-              <div className='hidden'>
-                <Link to = "/">
-                   <figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
-                     <img src={userImg} className='w-full rounded-full' alt="" />
-                   </figure>
+              
+               {token && user ? (
+                <div className='flex items-center gap-2'>
+                <Link to = "/users/profile/me">
+                <figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
+                    <img src={userImg} className='w-full rounded-full' alt="User Avatar" />
+                </figure>
                 </Link>
-              </div>
-              <h1>{user?.name}</h1>
-              <Link to = "/login">
-                    <button className='bg-primaryColor py-1 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]'>
-                        Login
-                    </button>
+                <h1 className='text-[16px] font-[600]'>Hi {user?.name}</h1>
+                </div>
+               ) : (
+                <Link to="/login">
+                  <button className='bg-primaryColor py-1 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]'>
+                   Login
+                  </button>
               </Link>
+            )}
 
               <span className='md:hidden' onClick={toggleMenu}>
                 <BiMenu className='w-6 h-6  cursor-pointer'/>
