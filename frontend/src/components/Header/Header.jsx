@@ -83,7 +83,7 @@ const Header = () => {
                     <img src={userImg} className='w-full rounded-full' alt="User Avatar" />
                 </figure>
                 </Link>
-                <h1 className='text-[16px] font-[600]'>Hi {user?.name}</h1>
+                <h1 className='text-[16px] font-[600]'>{user?.name}</h1>
                 </div>
                ) : (
                 <Link to="/login">

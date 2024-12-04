@@ -4,8 +4,6 @@ import User from "../models/User.js";
 import { createError } from "../error.js";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
-
-
 //import nodemailer from "nodemailer"; // Email sending library
 //import twilio from "twilio"; // SMS sending library
 

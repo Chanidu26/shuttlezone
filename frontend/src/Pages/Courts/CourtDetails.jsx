@@ -3,11 +3,11 @@ import star from '../../assets/images/Star.png'
 import Feedback from './Feedback';
 // Array of images for the court
 const courtImages = [
-  "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg",
-  "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg",
-  "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg",
-  "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg",
-  "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
+  "https://www.shutterstock.com/image-photo/professional-tournament-badminton-court-nobody-600nw-615785603.jpg",
+  "https://cdn.pixabay.com/photo/2023/12/06/08/06/badminton-8433177_640.jpg",
+  "https://www.shutterstock.com/image-photo/badminton-court-green-260nw-1137893252.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXCMujdhLW6rJUMSjzWa3sYQUX6gO3rTyRa1OkPjOebOVE1xgqE4n0YFknXkdWIbj18wU&usqp=CAU",
+  "https://www.shutterstock.com/image-photo/badminton-court-green-260nw-1137893252.jpg"
 ];
 
 const CourtDetails = () => {
@@ -96,6 +96,7 @@ const CourtDetails = () => {
       </div>
 
       <Feedback/>
+      <button className='btn mt-1'>Book Now</button>
     </section>
   );
 };
