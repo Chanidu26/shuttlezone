@@ -2,13 +2,13 @@ import React from 'react'
 
 const Contact = () => {
   return (
-    <section className='pt-5'>
+    <section className='pt-4'>
       <div className='px-4 mx-auto max-w-screen-md '>
-        <h2 className='heading text-center'>Contact us</h2>
-        <p className='text_para text-center'>
+        <h2 className='heading lg:text-[35px] text-center'>Contact us</h2>
+        <p className='text_para  text-center'>
           Do you have technical issue? Do you want to send a Feedback about us? Let us know
         </p>
-        <form action='#' className='space-y-8 pt-4'>
+        <form action='#' className='space-y-2 pt-2'>
           <div>
             <label htmlFor='email' className='form_label'>
               Email
@@ -16,7 +16,7 @@ const Contact = () => {
             <input
               type='email'
               id='email'
-              className='form_input mt-1'
+              className='form_input mt-1 rounded'
               placeholder='Enter your email'
             />
           </div>
@@ -28,7 +28,7 @@ const Contact = () => {
             <input
               type='text'
               id='subject'
-              className='form_input mt-1'
+              className='form_input mt-1 rounded'
               placeholder='Lets us know how we can help you?'
             />
           </div>
@@ -37,10 +37,10 @@ const Contact = () => {
               Your message
             </label>
             <textarea
-              rows = '6'
+              rows = '4'
               type='text'
               id='message'
-              className='form_input mt-1'
+              className='form_input mt-1 rounded'
               placeholder='Leave a comment...'
             
             />

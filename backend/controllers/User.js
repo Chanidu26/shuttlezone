@@ -67,16 +67,95 @@ export const UserLogin = async (req, res, next) => {
 
 //User Update
 export const updateUser = async (req, res, next) => {
+  const userId = req.userId;
+  
   try {
-    const userId = req.user.id;
-    const updates = req.body;
+    // Get the current user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-    // Check if user exists
-    // new: true will return the updated user
-    const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true });
-    return res.status(200).json(updatedUser);
+    // Prepare updates object
+    const updates = {};
+    
+    // Handle basic fields
+    if (req.body.name) updates.name = req.body.name;
+    if (req.body.email) {
+      // Check if email is already taken by another user
+      const emailExists = await User.findOne({ 
+        email: req.body.email,
+        _id: { $ne: userId } 
+      });
+      
+      if (emailExists) {
+        return res.status(400).json({ 
+          message: "Email is already in use" 
+        });
+      }
+      updates.email = req.body.email;
+    }
+
+    // Handle password update
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt(10);
+      updates.password = await bcrypt.hash(req.body.password, salt);
+    }
+
+    // Handle file upload
+    if (req.body.photo) {
+      updates.photo = req.body.photo; // Assuming Cloudinary URL
+    }
+
+    // Update user with sanitized data
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updates },
+      { 
+        new: true,
+        runValidators: true,
+        select: '-password -emailVerificationToken -phoneVerificationToken -resetPasswordToken -resetPasswordExpire'
+      }
+    );
+
+    return res.status(200).json({
+      success: true,
+      data: updatedUser
+    });
+
   } catch (error) {
-    return next(error);
+    // Handle specific MongoDB errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        message: Object.values(error.errors).map(err => err.message)
+      });
+    }
+    
+    // Handle other errors
+    return res.status(500).json({
+      message: "Error updating profile",
+      error: error.message
+    });
+  }
+};
+export const getProfile = async (req, res, next) => {
+  const userId = req.userId; // Retrieved from verifyToken middleware
+
+  try {
+    // Find user by ID
+    const user = await User.findById(userId);
+    if (!user) return next(createError(404, `User with ID ${userId} not found`));
+
+    // Exclude password from the response
+    const { password, ...rest } = user._doc;
+
+    res.status(200).json({
+      success: true,
+      message: "Profile info retrieved successfully",
+      data: rest,
+    });
+  } catch (error) {
+    next(error); // Handle errors
   }
 };
 
@@ -200,6 +279,7 @@ export const resetPassword = async (req, res, next) => {
     return next(error);
   }
 };
+
 
 
 

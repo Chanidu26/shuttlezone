@@ -6,6 +6,7 @@ import {
     deleteUser,
     requestPasswordReset,
     resetPassword,
+    getProfile
 } from "../controllers/User.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
@@ -15,6 +16,7 @@ const router = express.Router();
 router.post("/signup", UserRegister);
 router.post("/signin", UserLogin);
 router.put("/profile", verifyToken, updateUser);
+router.get("/myprofile",verifyToken,getProfile)
 router.delete("/profile", verifyToken, deleteUser);
 
 // for user password reset

@@ -6,6 +6,7 @@ import {NavLink, Link} from 'react-router-dom'
 import userImg from '../../assets/images/avatar-icon.png'
 import { BiMenu } from 'react-icons/bi'
 import { authContext } from '../../context/AuthContext'
+import useGetProfile from '../../hooks/useFetchData'
 const navLinks= [
   {
     path:'/home',
@@ -13,24 +14,31 @@ const navLinks= [
   },
   {
     path: '/courts',
-    display: "find court"
+    display: "Find court"
   },
   {
     path: '/services',
-    display: "services"
+    display: "Services"
+  },
+  {
+    path: '/court/create',
+    display: "Create court"
   },
   {
     path: '/contact',
-    display: "contact"
+    display: "Contact"
   }
 
 ]
 
 const Header = () => {
-
+  const baseUrl = process.env.REACT_APP_API_BASE_URL
   const headerRef = useRef(null)
   const menuRef = useRef(null)
   const {user, token} = useContext(authContext)
+
+  const { data: userData, loading, error } = useGetProfile(`${baseUrl}/api/user/myprofile`);
+  console.log(userData, 'userdata')
 
 
   const handleStickyHeader =()=>{
@@ -77,14 +85,16 @@ const Header = () => {
              <div className='flex items-center gap-4'>
               
                {token && user ? (
+                
                 <div className='flex items-center gap-2'>
                 <Link to = "/users/profile/me">
                 <figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
-                    <img src={userImg} className='w-full rounded-full' alt="User Avatar" />
+                    <img src={userData?.photo || userImg} className='w-full rounded-full' alt="User Avatar" />
                 </figure>
                 </Link>
-                <h1 className='text-[16px] font-[600]'>{user?.name}</h1>
+                <h1 className='text-[16px] font-[600]'>{userData?.name}</h1>
                 </div>
+               
                ) : (
                 <Link to="/login">
                   <button className='bg-primaryColor py-1 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]'>

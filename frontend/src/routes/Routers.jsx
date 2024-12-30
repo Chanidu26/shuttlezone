@@ -8,6 +8,7 @@ import Login from '../pages/Login'
 import Signup from '../pages/Signup'
 import { Routes, Route } from 'react-router-dom'
 import MyAccount from '../Dashboard/user-account/MyAccount'
+import Createcourt from '../pages/Createcourt'
 const Routers = () => {
   return <Routes>
       <Route path='/' element={<Home/>}/>
@@ -19,6 +20,7 @@ const Routers = () => {
       <Route path='/login' element={<Login/>}/>
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/users/profile/me' element={<MyAccount/>}></Route>
+      <Route path='/court/create' element={<Createcourt/>}/>
     </Routes>
 }
 

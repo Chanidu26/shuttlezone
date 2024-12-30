@@ -19,6 +19,10 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    bookings: {
+      type: Array,
+      default: [],
+    },
     phone: {
       type: String,
       required: false,

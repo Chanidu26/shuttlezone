@@ -30,8 +30,9 @@ const Home = () => {
             <p  className='text_para text-white'>
               {currentUser.name}
             </p>
-
-            <button className='btn'>Book a Court Now</button>
+            <Link to = '/courts'>
+              <button className='btn'>Book a Court Now</button>
+            </Link>
           </div>
           <div className='mt-[30px] lg:mt-[30px] flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-[30px]'>
 
@@ -54,7 +55,7 @@ const Home = () => {
                text-white'>100%</h2>
                <span className='w-[100px] h-2 bg-irisBlueColor rounded-full block mt-[-14px]'></span>
                <p className='text_para'>Experience</p>
-            </div>
+            </div>*
 
 
           </div>
@@ -89,9 +90,9 @@ const Home = () => {
             </div>
 
             <div className='mt-[30px]'>
-              <h2 className='text-[26px] leading-9 text-headingColor font-[700] text-center'>Find or Create a Court</h2>
+              <h2 className='text-[26px] leading-9 text-headingColor font-[700] text-center'>Create a Court</h2>
               <p className='text-[16px] leading-7 text-textColor font-[400] mt-4 text-center'>
-                Find court near you and create your own court
+                Create your own court
               </p>
 
               <Link to = '/courts' className='w-[44px] h-[44px] rounded-full border border-solid border-black
@@ -107,9 +108,9 @@ const Home = () => {
             </div>
 
             <div className='mt-[30px]'>
-              <h2 className='text-[26px] leading-9 text-headingColor font-[700] text-center'>Find Court Location</h2>
+              <h2 className='text-[26px] leading-9 text-headingColor font-[700] text-center'>Find Court and Location</h2>
               <p className='text-[16px] leading-7 text-textColor font-[400] mt-4 text-center'>
-                Find Location of the courts
+                Find the courts
               </p>
 
               <Link to = '/courts' className='w-[44px] h-[44px] rounded-full border border-solid border-black 

@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import UserRouter from "./routes/User.js";
 import CourtRouter from "./routes/Court.js";
+import PlatformreviewRouter from "./routes/Platformreview.js";
 import { createError } from "./error.js";
 
 dotenv.config();
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", UserRouter);
 app.use("/api/court", CourtRouter);
+app.use("/api/platformreview", PlatformreviewRouter);
 
 const connectDB = () => {
   mongoose.set("strictQuery", true);

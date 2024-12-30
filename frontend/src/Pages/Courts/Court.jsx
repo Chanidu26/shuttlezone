@@ -1,75 +1,143 @@
-import React, { useState } from 'react'
-import CourtCard from './CourtCard'
+import React, { useState } from "react";
+import CourtCard from "./CourtCard";
+import { useEffect } from "react";
 const Court = () => {
-  const [courts,setCourts] = useState([
-    {
-      id: 1,
-      name: "City Sports Center",
-      photo: "https://sportsvenuecalculator.com/wp-content/uploads/2022/11/Sponsor-6.jpg",
-      description: "A premium sports center with excellent facilities.",
-      price: "$20/hour",
-      rating: 4.5
-    },
-    {
-      id: 2,
-      name: "Downtown Court",
-      photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmEws5q6IMs9zMJ_NCQGJK022KjLe-u9ykYw&s",
-      description: "A centrally located court with good amenities.",
-      price: "$15/hour",
-      rating: 4.0
-    },
-    {
-      id: 3,
-      name: "Community Court",
-      photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQlSlGDnD4ivaRejFwKHREZbI57Y9nLDSWIA&s",
-      description: "Affordable court with basic facilities.",
-      price: "$10/hour",
-      rating: 3.5
-    },
-    {
-      id: 4,
-      name: "City badminton Center",
-      photo: "https://content.jdmagicbox.com/comp/indore/f8/0731px731.x731.190830183147.z2f8/catalogue/duke-param-academy-indore-badminton-classes-fjxaulc0b4.jpg?clr=",
-      description: "Affordable court with basic facilities.",
-      price: "$5/hour",
-      rating: 3.5
-    },
-    {
-      id: 5,
-      name: "Aluthgama Complex Court",
-      photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQlSlGDnD4ivaRejFwKHREZbI57Y9nLDSWIA&s",
-      description: "Affordable court with basic facilities.",
-      price: "$10/hour",
-      rating: 3.5
-    },
-  ])
+
+  const baseUrl = process.env.REACT_APP_API_BASE_URL
+  const [searchTerm, setSearchTerm] = useState("");
+  const [locationFilter, setLocationFilter] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [courts, setCourts] = useState([]);
+
+  useEffect(() => {
+    const fetchCourts = async () => {
+      try {
+        const response = await fetch(`${baseUrl}/api/court`);
+        const data = await response.json();
+        setCourts(data); // Store data in state
+      } catch (error) {
+        console.error("Error fetching courts:", error);
+      }
+    };
+
+    fetchCourts();
+  }, [baseUrl]); // Run once when component mounts
+  console.log(courts);
+
+  const filteredCourts = courts.filter((court) => {
+    const matchesSearch = court.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesLocation = locationFilter ? court.location === locationFilter : true;
+    const matchesDate = selectedDate
+      ? court.availableDates.some((availableDate) => availableDate.date.startsWith(selectedDate))
+      : true;
+    const matchesTimeSlot = selectedDate && startTime
+      ? court.availableDates.some(
+          (availableDate) =>
+            availableDate.date.startsWith(selectedDate) &&
+            availableDate.times.includes(startTime)
+        )
+      : true;
+  
+    return matchesSearch && matchesLocation && matchesDate && matchesTimeSlot;
+  });
+  
+  
+
+  const availableTimes = selectedDate
+  ? [
+      ...new Set(
+        courts.flatMap((court) =>
+          court.availableDates
+            .filter((availableDate) => availableDate.date.startsWith(selectedDate))
+            .flatMap((availableDate) => availableDate.times)
+        )
+      ),
+    ]
+  : [];
+
+
+  const handleBooking = (courtId) => {
+    if (!selectedDate || !startTime || !endTime) {
+      alert("Please select a date and time range before booking.");
+      return;
+    }
+  };
+
   return (
     <>
-    <section className='pt-5'>
-      <div className='container text-center'>
-        <h2 className='heading'>Find a court</h2>
-        <div className='max-w-[570px] mt-[30px] mx-auto bg-slate-200 rounded-md flex items-center justify-between'>
-          <input
-            type="search"
-            placeholder="Search for courts"
-            className="w-full py-4 pl-4 pr-2 text-white bg-transparent focus:outline-none
-            cursor-pointer placeholder: text-black "
-          />
-          <button className='btn mt-0 rounded-[0px] rounded-r-md'>Search</button>
-        </div>
-      </div>
-    </section>
-    <section className='pt-0'> 
-        <div className='container'>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1'>
-            {courts.map(court => (
-              <CourtCard key={court.id} court={court} />
-            ))}
+      <section className="py-5 bg-gray-100">
+        <div className="container mx-auto">
+          <h2 className="text-center text-2xl font-bold mb-5">Explore Courts </h2>
+          <div className="bg-white shadow-md rounded-md p-6 flex flex-wrap gap-4 items-center justify-between">
+            <input
+              type="text"
+              placeholder="Search courts..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="flex-grow py-2 px-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <select
+              value={locationFilter}
+              onChange={(e) => setLocationFilter(e.target.value)}
+              className="py-2 px-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Location</option>
+              {[...new Set(courts.map((court) => court.location))].map((location) => (
+                <option key={location} value={location}>
+                  {location}
+                </option>
+              ))}
+            </select>
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="py-2 px-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <select
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              className="py-2 px-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Time Slot</option>
+              {availableTimes.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))}
+            </select>
+
+            
+            <button className="py-2 px-6 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              Search
+            </button>
           </div>
         </div>
-    </section>
-    </>
-  )
-}
+      </section>
 
-export default Court
+      <section className="py-5">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            {filteredCourts.length > 0 ? (
+              filteredCourts.map((court) => (
+                <CourtCard
+                  key={court._id}
+                  court={court}
+                  onBook={() => handleBooking(court._id)}
+                />
+              ))
+            ) : (
+              <p className="col-span-full text-center text-gray-500">
+                No courts found matching your criteria.
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default Court;

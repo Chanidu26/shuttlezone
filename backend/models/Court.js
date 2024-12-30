@@ -7,42 +7,40 @@ const CourtSchema = new mongoose.Schema(
       required: true,
     },
     location: {
-      type: {
-        type: String, // "Point"
-        enum: ['Point'],
+      type: String, // "Point"
+      required: true,
+     },
+    images: {
+      type: [String],
+      required: false,
+    },
+    price:{
+        type: Number,
         required: true,
-      },
-      coordinates: {
-        type: [Number], // [longitude, latitude]
-        required: true,
-      },
-      address: {
-        type: String,
-        required: true,
-      },
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    availableSlots: [
+    description: {
+      type: String,
+      required: true,
+    },
+    availableDates: [
       {
         date: {
           type: Date,
-          required: true,
+          required: false,
         },
-        startTime: {
+        times: [{
           type: String,
-          required: true,
-        },
-        endTime: {
-          type: String,
-          required: true,
-        },
+          required: false,
+        }],
         isBooked: {
           type: Boolean,
           default: false,
+          required: false,
         },
       },
     ],

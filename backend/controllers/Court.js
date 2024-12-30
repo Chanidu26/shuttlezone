@@ -1,22 +1,25 @@
 import Court from "../models/Court.js";
 import { createError } from "../error.js";
 import User from "../models/User.js";
+import mongoose from "mongoose";
 
 // Create Court
 export const createCourt = async (req, res, next) => {
     try {
       //send the name, location, and owner to the database
       //req.user.id is the id of the user who is logged in  
-      const { name, location, availableSlots } = req.body;
-      const owner = req.user.id;
-  
+      const { name, location,  price, description,owner, availableDates, images} = req.body;
       //create a new court
       const newCourt = new Court({
         name,
         location,
         owner,
-        availableSlots,
+        images,
+        price,
+        description,
+        availableDates,
       });
+      console.log(newCourt.images);
   
       const savedCourt = await newCourt.save();
       return res.status(201).json(savedCourt);
@@ -28,11 +31,21 @@ export const createCourt = async (req, res, next) => {
 
 // Get All Courts
 export const getCourts = async (req, res, next) => {
+
     try {
       //this populate method will populate the owner field of each court with the name and email of the owner
-      const courts = await Court.find().populate("owner", "name email");
+      const courts = await Court.find();
       return res.status(200).json(courts);
     } catch (error) {
+      return next(error);
+    }
+  };
+  export const getMyCourts = async (req, res, next) => {
+    try {
+      const courts = await Court.find({ owner: req.userId });
+      return res.status(200).json(courts);
+    } catch (error) {
+      console.error("Error in getMyCourts:", error); // Add this log
       return next(error);
     }
   };
@@ -83,7 +96,7 @@ export const deleteCourt = async (req, res, next) => {
       if (!court) return next(createError(404, "Court not found"));
   
       //check if the owner of the court is the same as the user who is deleting the court
-      if (court.owner.toString() !== req.user.id) {
+      if (court.owner.toString() !== req.userId) {
         return next(createError(403, "You can only delete your own courts"));
       }
       
