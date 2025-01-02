@@ -1,11 +1,11 @@
 # Node modules
 node_modules/
+.env
 
 # Logs
 *.log
 
 # Environment variables
-
 
 # Dependency directories
 jspm_packages/

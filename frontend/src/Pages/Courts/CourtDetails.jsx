@@ -140,9 +140,9 @@ const CourtDetails = () => {
 
         {/* Court Description */}
         <div className="court-description">
-          <h2 className="text-3xl font-bold mb-5">{courtData.name}</h2>
+          <h2 className="text-2xl lg:text-3xl font-bold mb-5">{courtData.name}</h2>
           
-          <p className="text-lg text-gray-600 mb-4">
+          <p className="text-md lg:text-lg text-gray-600 mb-4">
             {courtData.description}
           </p>
           
