@@ -1,20 +1,3 @@
-FROM node:20-slim as builder
-
-WORKDIR /app
-
-# Copy package files
-COPY package*.json ./
-
-# Install dependencies
-RUN npm ci
-
-# Copy rest of the code
-COPY . .
-
-# Build the app
-RUN npm run build
-
-# Production stage
 FROM node:20-slim
 
 WORKDIR /app
@@ -22,12 +5,13 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install only production dependencies
-RUN npm install --only=production
+# Install dependencies
+RUN npm install
 
-# Copy built files from builder stage
-COPY --from=builder /app/build ./build
+# Copy rest of the code
+COPY . .
 
 EXPOSE 3000
 
+# Use development server
 CMD ["npm", "start"]
