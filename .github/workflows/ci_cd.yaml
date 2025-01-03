@@ -34,7 +34,7 @@ jobs:
     - name: Build and Push Backend
       working-directory: ./backend
       run: |
-        docker build \
+        docker buildx build \
           --build-arg MONGO_DB=${{ secrets.MONGO_DB }} \
           --build-arg JWT=${{ secrets.JWT }} \
           -t $BACKEND_IMAGE:latest .
@@ -44,7 +44,7 @@ jobs:
     - name: Build and Push Frontend
       working-directory: ./frontend
       run: |
-        docker build \
+        docker buildx build \
           --build-arg REACT_APP_API_BASE_URL=${{ secrets.REACT_APP_API_BASE_URL }} \
           --build-arg REACT_APP_CLOUDINARY_CLOUD_NAME=${{ secrets.REACT_APP_CLOUDINARY_CLOUD_NAME }} \
           --build-arg REACT_APP_CLOUDINARY_UPLOAD_PRESET=${{ secrets.REACT_APP_CLOUDINARY_UPLOAD_PRESET }} \
