@@ -84,13 +84,13 @@ const ReviewForm = ({ onClose, onReviewAdded }) => {
 const TestimonialCard = ({ review, isActive }) => {
   return (
     <div className={`transform transition-all duration-300 ${isActive ? 'scale-105' : 'scale-95 opacity-70'}`}>
-      <div className="bg-white p-12 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 relative">
+      <div className="p-12 px-20 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 relative">
         {/* Large decorative quote mark */}
         
         <div className="absolute -top-4 -left-2 text-8xl text-gray-200 font-serif leading-none">"</div>
         
         {/* Content container with proper z-index */}
-        <div className="relative z-10">
+        <div className="relative z-10 px-5">
           <div className="flex justify-between items-start mb-6">
             <div className="flex items-center space-x-4">
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
