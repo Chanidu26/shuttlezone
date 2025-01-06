@@ -27,6 +27,10 @@ const CourtSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    googlemaplink: {
+      type: String,
+      required: false,
+    },
     availableDates: [
       {
         date: {

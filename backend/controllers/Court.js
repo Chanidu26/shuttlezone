@@ -8,7 +8,7 @@ export const createCourt = async (req, res, next) => {
     try {
       //send the name, location, and owner to the database
       //req.user.id is the id of the user who is logged in  
-      const { name, location,  price, description,owner, availableDates, images} = req.body;
+      const { name, location,  price, description,owner, availableDates, images, googlemaplink} = req.body;
       //create a new court
       const newCourt = new Court({
         name,
@@ -18,6 +18,7 @@ export const createCourt = async (req, res, next) => {
         price,
         description,
         availableDates,
+        googlemaplink,
       });
       console.log(newCourt.images);
   
