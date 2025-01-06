@@ -11,6 +11,7 @@ const CreateCourt = () => {
     owner: '',
     price: '',
     description: '',
+    googlemaplink: '',
     images: [],
     availableDates: [],
   });
@@ -96,6 +97,7 @@ const CreateCourt = () => {
         owner: user._id, 
         price: courtDetails.price,
         description: courtDetails.description,
+        googlemaplink: courtDetails.googlemaplink,
         images: courtDetails.images,
         availableDates: courtDetails.availableDates,
       };
@@ -140,6 +142,7 @@ const CreateCourt = () => {
         price: '',
         description: '',
         images: [],
+        googlemaplink: '',
         availableDates: [],
       });
     } catch (error) {
@@ -202,6 +205,18 @@ const CreateCourt = () => {
                 rows="4"
               />
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Google Map Link</label>
+              <input
+                type="text"
+                name="googlemaplink"
+                value={courtDetails.googlemaplink}
+                onChange={handleInputChange}
+                placeholder="Enter Google map Link"
+                className="block w-full mt-2 border border-gray-300 rounded-lg p-2"
+              />
+            </div>
+            
           </div>
 
           {/* Upload Images */}

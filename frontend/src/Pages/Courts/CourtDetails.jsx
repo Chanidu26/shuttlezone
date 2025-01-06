@@ -58,6 +58,7 @@ const CourtDetails = () => {
     fetchCourtData();
   }, [baseUrl, id]);
 
+
   // Auto slide for images
   const courtImages = courtData?.images || [];
   useEffect(() => {
@@ -151,6 +152,17 @@ const CourtDetails = () => {
           </p>
           <p className="text-lg text-gray-600 mb-1">
             Price: Rs {courtData.price} per 30 mins
+          </p>
+          <p className="text-lg text-gray-600 mb-1">
+            Visit in Google map:{" "}
+            <a 
+              href={courtData.googlemaplink} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-primaryColor underline hover:text-blue-800"
+            >
+              Open in Google map
+            </a>
           </p>
         </div>
       </div>
