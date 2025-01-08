@@ -10,10 +10,11 @@ const Signup = () => {
   const [email,setEmail] = useState('')
   const [name,setName] = useState('')
   const [password,setPassword] = useState('')
+  const [isCourtOwner, setIsCourtOwner] = useState(false);
   const navigate = useNavigate()
   const register = async (e) => {
     e.preventDefault()
-    const user = {name,email,password}
+    const user = {name,email,password, isCourtOwner}
     try{
       const res = await fetch(`${baseUrl}/api/user/signup`,{
         method: 'POST',
@@ -83,6 +84,15 @@ const Signup = () => {
                     className="w-full p-3 border border-gray-300 rounded mt-1 focus:ring-2 focus:ring-indigo-500"
                     placeholder="Enter your password"
                    />
+                </div>
+                <div className="mb-2 flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={isCourtOwner}
+                    onChange={(e) => setIsCourtOwner(e.target.checked)}
+                    className="w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500"
+                  />
+                  <label className="ml-2 text-sm text-gray-600">I am a court owner</label>
                 </div>
 
                 <button onClick={register} type="submit" className="w-full bg-primaryColor text-white p-3 rounded-lg">

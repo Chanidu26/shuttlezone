@@ -10,7 +10,7 @@ import nodemailer from "nodemailer";
 // User Register
 export const UserRegister = async (req, res, next) => {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, name, isCourtOwner } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return next(createError(409, "Email is already in use"));
@@ -25,6 +25,7 @@ export const UserRegister = async (req, res, next) => {
       name,
       email,
       password: hashedPassword,
+      isCourtOwner,
     });
     const createdUser = await user.save();
     // using jwt to create a token with the user id
