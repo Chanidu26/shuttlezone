@@ -89,7 +89,7 @@ const Header = () => {
                 <div className='flex items-center gap-2'>
                 <Link to = "/users/profile/me">
                 <figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
-                    <img src={userData?.photo || userImg} className='w-full rounded-full' alt="User Avatar" />
+                    <img src={userData?.photo || userImg } className='w-full rounded-full'  />
                 </figure>
                 </Link>
                 <h1 className='text-[16px] font-[600]'>{userData?.name}</h1>
