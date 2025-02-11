@@ -39,10 +39,15 @@ const MyBookings = ({ user }) => {
                 {booking.court.name}
               </p>
               <p>
-                <span className="font-semibold">Date:</span> {booking.date}
+                <span className="font-semibold">Date:</span> {new Date(booking.date).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
               </p>
               <p>
-                <span className="font-semibold">Times:</span> {booking.times}
+                <span className="font-semibold">Times:</span> {booking.times.join(', ')}
               </p>
               <button className='bg-red-500 mt-3 text-white py-2 px-4 rounded'>Cancel Booking</button>
             </li>
