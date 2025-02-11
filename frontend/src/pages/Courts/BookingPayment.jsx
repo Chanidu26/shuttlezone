@@ -51,42 +51,97 @@ const BookingPayment = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen mt-0 bg-gray-100">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Make a Payment</h2>
-        {paymentSuccess ? (
-          <div>
-            <p className="text-green-600 text-center font-semibold">Your Booking is Successful!</p>
-             <a href='/users/profile/me'> <button className="w-full bg-primaryColor text-white py-2 px-4 rounded-xl hover:bg-indigo-700 transition duration-200 mt-2">Go to Profile</button> </a>
+    <div className="flex max-w-[1200px] shadow-md justify-center items-center min-h-screen p-0 mx-auto">
+    <div className="w-full max-w-4xl bg-white rounded-3xl overflow-hidden transform transition-all hover:scale-[1.01] mt-0 duration-300">
+      <div className="p-6 md:p-0">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+          {paymentSuccess ? "Booking Confirmed" : "Make a Payment"}
+        </h2>
 
+        {paymentSuccess ? (
+          <div className="space-y-6">
+            <div className="flex items-center justify-center">
+              <div className="bg-green-100 rounded-full p-4">
+                <svg className="w-12 h-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-green-600 text-center font-semibold text-xl">
+              Your Booking is Successful!
+            </p>
+            <a href="/users/profile/me">
+              <button className="w-full bg-indigo-600 text-white py-4 px-2 rounded-xl hover:bg-indigo-700 transform transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-md text-lg font-semibold">
+                Go to profile
+              </button>
+            </a>
           </div>
         ) : (
-          <>
-            <div className="text-gray-700 mb-4">
-              <img className='w-full mb-3' src={image} alt="Court" />
-              <p><strong>Court ID:</strong> {courtId}</p>
-              <p><strong>Court Name:</strong> {courtName}</p>
-              <p><strong>Total Amount:</strong> LKR {price}</p>
-              <p><strong>Date:</strong> {new Date(date).toLocaleDateString()}</p>
-              <p><strong>Slots:</strong> {slots?.join(', ')}</p>
-             
+          <div className="flex flex-col md:flex-row gap-8">
+            {/* Left side - Image */}
+            <div className="md:w-2/5">
+              <div className="relative rounded-2xl overflow-hidden shadow-md h-full">
+                <img 
+                  className="w-full h-64 md:h-full object-cover" 
+                  src={image} 
+                  alt={courtName}
+                />
+              </div>
             </div>
-            <StripeCheckout
-              amount={price * 100}
-              currency="LKR"
-              token={handleToken}
-              stripeKey="pk_test_51Q7ymXRrLNtV0o2Mvz4a2uUjm6WMDsro1DAhOMt7gc7UrB5x3JCU5PBlMBIjA1O9eFdvBXyAeNR6pwlkgaIHqaQ1005oAoYyJS"
-            >
-              <button
-                className="w-full bg-primaryColor text-white py-2 px-4 rounded-xl hover:bg-indigo-700 transition duration-200 mt-2"
-              >
-                Pay Now
-              </button>
-            </StripeCheckout>
-          </>
+
+            {/* Right side - Details */}
+            <div className="md:w-3/5 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gray-50 p-4 rounded-xl">
+                  <p className="text-sm text-gray-500">Court ID</p>
+                  <p className="font-semibold text-gray-800">{courtId}</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-xl">
+                  <p className="text-sm text-gray-500">Court Name</p>
+                  <p className="font-semibold text-gray-800">{courtName}</p>
+                </div>
+              </div>
+
+              <div className="bg-indigo-50 p-4 rounded-xl">
+                <p className="text-sm text-green-600">Total Amount</p>
+                <p className="text-2xl font-bold text-green-700">LKR {price}</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-xl">
+                <p className="text-sm text-gray-500">Booking Date</p>
+                <p className="font-semibold text-gray-800">
+                  {new Date(date).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-xl">
+                <p className="text-sm text-gray-500">Time Slots</p>
+                <p className="font-semibold text-gray-800">{slots?.join(', ')}</p>
+              </div>
+
+              <div className="pt-4">
+                <StripeCheckout
+                  amount={price * 100}
+                  currency="LKR"
+                  token={handleToken}
+                  stripeKey="pk_test_51Q7ymXRrLNtV0o2Mvz4a2uUjm6WMDsro1DAhOMt7gc7UrB5x3JCU5PBlMBIjA1O9eFdvBXyAeNR6pwlkgaIHqaQ1005oAoYyJS"
+                >
+                  <button className="w-full bg-primaryColor text-white py-4 px-6 rounded-xl transform transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-md text-lg font-semibold">
+                    Pay Now
+                  </button>
+                </StripeCheckout>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
+  </div>
   );
 };
 
