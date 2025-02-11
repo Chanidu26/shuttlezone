@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import star from '../../assets/images/Star.png';
 import { useParams } from 'react-router-dom';
 import Feedback from './Feedback';
+import { useNavigate } from 'react-router-dom';
+import BookingPayment from './BookingPayment';
 
 const CourtDetails = () => {
+  const navigate = useNavigate();
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const [courtData, setCourtData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +34,20 @@ const CourtDetails = () => {
         : [...prevSlots, slot]
     );
   };
-
+  const handlePayment = () => {
+    navigate('/court/booking', {
+      state: {
+        price: calculateTotalPrice(),
+        courtId: id,
+        courtName: courtData.name,
+        date: selectedDate,
+        slots: selectedSlots,
+        image: courtImages[0]
+      },
+    });
+  }
+  console.log(selectedDate)
+  console.log(selectedSlots)
   // Calculate total price
   const calculateTotalPrice = () => selectedSlots.length * courtData.price;
 
@@ -222,7 +238,7 @@ const CourtDetails = () => {
             <h4 className="text-lg font-medium text-gray-700 mb-2">Payment Details</h4>
             <p className="text-lg mb-2">Total Slots: {selectedSlots.length}</p>
             <p className="text-lg mb-2">Total Price: Rs {calculateTotalPrice()}</p>
-            <button className="btn mt-5 px-4 py-3">Proceed to Pay</button>
+            <button onClick={handlePayment} className="btn mt-5 px-4 py-3">Proceed to Pay</button>
           </div>
         )}
       </div>

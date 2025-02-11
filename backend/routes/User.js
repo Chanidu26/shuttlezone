@@ -6,7 +6,8 @@ import {
     deleteUser,
     requestPasswordReset,
     resetPassword,
-    getProfile
+    getProfile,
+    makePayment
 } from "../controllers/User.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
@@ -18,6 +19,7 @@ router.post("/signin", UserLogin);
 router.put("/profile", verifyToken, updateUser);
 router.get("/myprofile",verifyToken,getProfile)
 router.delete("/profile", verifyToken, deleteUser);
+router.post('/payment', makePayment)
 
 // for user password reset
 router.post('/request-password-reset', requestPasswordReset);

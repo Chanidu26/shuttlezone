@@ -5,13 +5,13 @@ import { createBooking,
         updateBooking,
         deleteBooking,
         getAvailableCourts,
-        getCourtDetails
+        getCourtDetails,
  } from "../controllers/Booking.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
-router.post("/", verifyToken, createBooking);
+router.post("/", createBooking);
 router.get("/", verifyToken, getUserBookings);
 router.get("/:id", verifyToken, getBookingById);
 router.put("/:id", verifyToken, updateBooking);

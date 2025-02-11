@@ -1,11 +1,46 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import Booking from "../models/Booking.js";
 import { createError } from "../error.js";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+import Stripe from "stripe";
+import * as dotenv from "dotenv";
+dotenv.config();
 //import nodemailer from "nodemailer"; // Email sending library
 //import twilio from "twilio"; // SMS sending library
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+//make Payment
+export const makePayment = async (req, res) => {
+  const { token, amount, description } = req.body;
+  
+  try {
+    // Create a charge using the Stripe API
+    const charge = await stripe.charges.create({
+      amount,
+      currency: 'LKR',
+      description,
+      source: token.id,
+    });
+    //const booking = await Booking.findOneAndUpdate(
+    //{ courtId },
+    //{ status: 'confirmed' },
+    //{ new: true }
+    //);
+
+    return res.status(200).json({
+      message: 'Payment successful',
+      charge,
+    });
+  } catch (error) {
+    console.error('Payment Error:', error);
+    return res.status(500).json({
+      message: 'Payment failed',
+      error: error.message,
+    });
+  }
+}
 
 // User Register
 export const UserRegister = async (req, res, next) => {

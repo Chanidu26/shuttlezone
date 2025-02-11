@@ -65,12 +65,14 @@ const MyAccount = () => {
                 ${tab === "settings" ? "bg-primaryColor text-white" : "bg-gray-100 text-headingColor hover:bg-gray-200"}`}>
               Profile Settings
             </button>
-            <button
-              onClick={() => setTab("courts")}
-              className={`px-4 py-2  rounded-md font-medium text-sm transition-all duration-200
-                ${tab === "courts" ? "bg-primaryColor text-white" : "bg-gray-100 text-headingColor hover:bg-gray-200"}`}>
-              My Courts
-            </button>
+            {userData.isCourtOwner && ( // Conditionally render "My Courts" button
+                <button
+                  onClick={() => setTab("courts")}
+                  className={`px-4 py-2  rounded-md font-medium text-sm transition-all duration-200
+                    ${tab === "courts" ? "bg-primaryColor text-white" : "bg-gray-100 text-headingColor hover:bg-gray-200"}`}>
+                  My Courts
+                </button>
+              )}
           </div>
 
           {/* Tab Content */}

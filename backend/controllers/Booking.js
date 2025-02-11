@@ -1,53 +1,36 @@
-import Booking from "../models/Booking";
-import Court from "../models/Court";
+import Booking from "../models/Booking.js";
+import Court from "../models/Court.js";
 import { createError } from "../error.js";
 
 export const createBooking = async (req, res, next) => {
     try {
-        // req.body contains the courtId, date, startTime, endTime
-        const { courtId, date, startTime, endTime } = req.body;
-
-        // check if the court exists
-        const court = await Court.findById(courtId);
-
-        // if the court doesn't exist, throw an error
-        if (!court) {
-            return next(createError(404, "Court not found"));
-        }
-
-        // check if the booking already exists
-        const existingBooking = await Booking.findOne({ court: courtId, date, startTime, endTime });
-        
-        // if the booking already exists, throw an error
-        if (existingBooking) {
-            return next(createError(400, "This time slot is already booked"));
-        }
-
-        // create a new booking, 
+        const { courtId, date, slots, userId } = req.body;
+    
+        // Create booking record in the database
         const booking = new Booking({
-            user: req.user.id,
-            court: courtId,
-            date,
-            startTime,
-            endTime,
-            status: "pending",
+          court: courtId,
+          date,
+          times: slots,
+          user: userId,
+          status: 'Confirmed',
         });
-
-        // save the booking to the database
+    
         await booking.save();
-
-        // send the booking to the client as a response
-        return res.status(201).json({ message: "Booking created successfully", booking });
-    } 
-    catch (error) {
-        return next(error);
-    }
+    
+        res.status(201).json({
+          message: 'Court booked successfully!',
+          booking,
+        });
+      } catch (error) {
+        next(error);
+      }
 };
 
 export const getUserBookings = async (req, res, next) => {
+    const userId = req.userId;
     try {
       // find all bookings for the current user and populate method to populate the court field
-      const bookings = await Booking.find({ user: req.user.id }).populate("court");
+      const bookings = await Booking.find({ user: userId }).populate("court");
       return res.status(200).json(bookings);
     } catch (error) {
       next(error);

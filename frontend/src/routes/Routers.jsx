@@ -6,6 +6,7 @@ import Court from '../pages/Courts/Court'
 import CourtDetails from '../pages/Courts/CourtDetails'
 import Login from '../pages/Login'
 import Signup from '../pages/Signup'
+import BookingPayment from '../pages/Courts/BookingPayment'
 import { Routes, Route } from 'react-router-dom'
 import MyAccount from '../Dashboard/user-account/MyAccount'
 import Createcourt from '../pages/Createcourt'
@@ -21,6 +22,7 @@ const Routers = () => {
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/users/profile/me' element={<MyAccount/>}></Route>
       <Route path='/court/create' element={<Createcourt/>}/>
+      <Route path= '/court/booking' element={<BookingPayment/>}/>
     </Routes>
 }
 

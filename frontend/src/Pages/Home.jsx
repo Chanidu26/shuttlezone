@@ -27,9 +27,6 @@ const Home = () => {
             <h1 className='text-[36px] leading-[46px] text-white font-[800] md:text-[55px] md:leading-[70px]'>
             Super Easy Badminton Court Bookings Await!
             </h1>
-            <p  className='text_para text-white'>
-              {currentUser.name}
-            </p>
             <Link to = '/courts'>
               <button className='btn'>Book a Court Now</button>
             </Link>
