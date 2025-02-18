@@ -5,7 +5,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: ${DOCKER_USERNAME}/backend:latest
+    image: ${DOCKER_USERNAME}/shuttlezone-backend:latest
     environment:
       - NODE_ENV=development
     ports:
@@ -18,7 +18,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: ${DOCKER_USERNAME}/frontend:latest
+    image: ${DOCKER_USERNAME}/shuttlezone-frontend:latest
     ports:
       - "3000:3000"
     volumes:
