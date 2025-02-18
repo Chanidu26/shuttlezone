@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { token } from '../../config';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
 
 const MyCourts = () => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const [mycourts, setMycourts] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   console.log(token)
   useEffect(() => {
     const fetchMyCourts = async () => {
@@ -41,11 +44,18 @@ const MyCourts = () => {
 
       // Update state to remove deleted court
       setMycourts((prevCourts) => prevCourts.filter((court) => court._id !== courtId));
-      toast.success('Court deleted successfully');
+      Swal.fire({
+        icon: 'success',
+        title: 'Court Deleted',
+        text: 'The court has been deleted successfully.',
+      })
     } catch (error) {
       console.error('Error deleting court:', error);
       alert(error.response?.data?.message || 'Failed to delete court');
     }
+  };
+  const handleUpdate = (courtId) => {
+    navigate(`/court/update/${courtId}`);
   };
 
   return (
@@ -71,7 +81,7 @@ const MyCourts = () => {
               <div className='buttons flex flex-row gap-3'>
                   <button
                     className="bg-primaryColor text-white py-2 px-4 rounded-lg mt-4 transition-colors duration-300"
-                    onClick={() => alert(`Update ${court.name}`)}
+                    onClick={() => handleUpdate(court._id)}
                   >
                     Update
                   </button>

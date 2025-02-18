@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { authContext } from '../../src/context/AuthContext';
 import {toast} from 'react-toastify'
+import Swal from 'sweetalert2';
 import uploadImageToCloudinary from '../utils/uploadCloudinary';
 const CreateCourt = () => {
   const baseURL = process.env.REACT_APP_API_BASE_URL;
@@ -131,7 +132,11 @@ const CreateCourt = () => {
       }
   
       const data = await response.json();
-      toast.success('Court created successfully!');
+      Swal.fire({
+        title: 'Court Created!',
+        text: 'Your court has been created successfully.',
+        icon:'success',
+      })
       console.log('Court created:', data);
   
       // Optionally, reset form or navigate to another page

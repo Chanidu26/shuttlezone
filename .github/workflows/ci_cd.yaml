@@ -1,9 +1,9 @@
 name: CI/CD Pipeline
 
 on:
-  #push:
-    #branches:
-      #- main
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -25,31 +25,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Step 3: Create backend .env file
-      - name: Create backend .env
-        run: |
-          cat << EOF > ./backend/.env
-          MONGO_DB=${{ secrets.MONGO_DB }}
-          JWT=${{ secrets.JWT }}
-          EOF
-
-      # Step 4: Create frontend .env file
-      - name: Create frontend .env
-        run: |
-          cat << EOF > ./frontend/.env
-          REACT_APP_API_BASE_URL=${{ secrets.REACT_APP_API_BASE_URL }}
-          REACT_APP_CLOUDINARY_CLOUD_NAME=${{ secrets.REACT_APP_CLOUDINARY_CLOUD_NAME }}
-          REACT_APP_CLOUDINARY_UPLOAD_PRESET=${{ secrets.REACT_APP_CLOUDINARY_UPLOAD_PRESET }}
-          EOF
-
-      # Step 5: Create .env for docker-compose
-      - name: Create docker-compose .env
-        run: |
-          cat << EOF > .env
-          DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
-          EOF
-
-      # Step 6: Build and push images using docker-compose
+      # Step 3: Build and push images using docker-compose
       - name: Build and push
         run: |
           docker compose build

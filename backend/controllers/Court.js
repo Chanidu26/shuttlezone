@@ -86,7 +86,7 @@ export const updateCourt = async (req, res, next) => {
     } catch (error) {
       return next(error);
     }
-  };
+};
 
 
 // Delete Court

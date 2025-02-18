@@ -14,12 +14,24 @@ export const createBooking = async (req, res, next) => {
           user: userId,
           status: 'Confirmed',
         });
-    
         await booking.save();
+
+        const court = await Court.findOneAndUpdate(
+            {
+                _id: courtId,
+                "availableDates.date": new Date(date),
+            },
+            {
+                $pull: { "availableDates.$.times": { $in: slots } }, // Remove booked times
+            },
+            { new: true } // Return updated document
+        );
+
     
         res.status(201).json({
           message: 'Court booked successfully!',
           booking,
+          court,
         });
       } catch (error) {
         next(error);

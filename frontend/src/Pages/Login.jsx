@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
-import axios from 'axios';
 import { Link , useNavigate} from "react-router-dom"
-import {toast} from 'react-toastify'
+import Swal from 'sweetalert2';
 import {authContext} from '../context/AuthContext.jsx'
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
@@ -36,11 +35,20 @@ const Login = () => {
       });
       
       console.log(result)
-      toast.success("Login successful")
+      Swal.fire({
+              title: 'Login Sucessful',
+              text: 'welcome to ShuttleZone. Login successful.',
+              icon: 'success',
+      });
       navigate('/home')
       
     }
     catch(err){
+      Swal.fire({
+        title: 'Login Failed',
+        text: "Invalid Credential",
+        icon: 'error',
+      })
       console.log(err)
     }
   }

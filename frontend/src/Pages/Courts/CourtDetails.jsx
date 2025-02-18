@@ -167,7 +167,7 @@ const CourtDetails = () => {
            Location: {courtData.location}
           </p>
           <p className="text-lg text-gray-600 mb-1">
-            Price: Rs {courtData.price} per 30 mins
+            Price: <span className='font-bold text-primaryColor'>Rs {courtData.price} </span> per <span className='font-bold text-primaryColor'>30 mins</span>
           </p>
           <p className="text-lg text-gray-600 mb-1">
             Visit in Google map:{" "}
@@ -205,6 +205,8 @@ const CourtDetails = () => {
             ))}
           </select>
         </div>
+
+        
 
         {/* Available Times */}
         {selectedDate && availableTimes.length > 0 && (
