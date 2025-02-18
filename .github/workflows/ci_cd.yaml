@@ -39,3 +39,9 @@ jobs:
         run: |
           docker compose build
           docker compose push
+
+      # steps 5: SSH in to AWS EC2
+      - name: SSH in to AWS EC2
+        run: |
+          echo "${{ secrets.ec2_key}}" > ec2_key.pem
+          
