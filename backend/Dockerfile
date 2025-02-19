@@ -11,12 +11,6 @@ RUN npm install
 # Copy rest of the code
 COPY . .
 
-# Create a non-root user
-RUN adduser --disabled-password --gecos "" appuser && \
-    chown -R appuser:appuser /app
-
-USER appuser
-
 EXPOSE 3030
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "dev"]
