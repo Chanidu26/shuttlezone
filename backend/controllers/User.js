@@ -142,6 +142,9 @@ export const updateUser = async (req, res, next) => {
     if (req.body.photo) {
       updates.photo = req.body.photo; // Assuming Cloudinary URL
     }
+    if(req.body.phone){
+      updates.phone = req.body.phone;
+    }
 
     // Update user with sanitized data
     const updatedUser = await User.findByIdAndUpdate(

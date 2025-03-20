@@ -57,15 +57,18 @@ const MyCourts = () => {
   const handleUpdate = (courtId) => {
     navigate(`/court/update/${courtId}`);
   };
+  const handleAppointment = (courtId) => {
+    navigate(`/court/appointments/${courtId}`);
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen py-10">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3">
           {mycourts.map((court) => (
             <div
               key={court.id}
-              className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-lg shadow-lg p-3 hover:shadow-xl transition-shadow duration-300"
             >
               <div className="w-full h-48 overflow-hidden rounded-md">
                 <img
@@ -78,7 +81,7 @@ const MyCourts = () => {
               <p className="text-gray-500 mt-1">{court.location}</p>
               <p className="text-gray-800 font-bold mt-2">{court.price} per 30 mins</p>
 
-              <div className='buttons flex flex-row gap-3'>
+              <div className='buttons flex flex-row gap-1'>
                   <button
                     className="bg-primaryColor text-white py-2 px-4 rounded-lg mt-4 transition-colors duration-300"
                     onClick={() => handleUpdate(court._id)}
@@ -90,6 +93,12 @@ const MyCourts = () => {
                     onClick={() => handleDelete(court._id)}
                   >
                     Delete
+                  </button>
+                  <button
+                    className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 transition-colors duration-300"
+                    onClick={() => handleAppointment(court._id)}
+                  >
+                    Appointments
                   </button>
               </div>
               

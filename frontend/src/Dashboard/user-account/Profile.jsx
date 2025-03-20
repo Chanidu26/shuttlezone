@@ -11,6 +11,7 @@ const Profile = ({ user }) => {
     name: user?.name || '',
     email: user?.email || '',
     password: '',
+    phone: user?.phone || '',
     photo: user?.photo || null, // Initialize with user's existing photo
   });
  
@@ -90,6 +91,7 @@ const Profile = ({ user }) => {
       const updateData = {
         name: formData.name,
         email: formData.email,
+        phone: formData.phone
       };
   
       // Include optional fields
@@ -180,6 +182,23 @@ const Profile = ({ user }) => {
             onChange={handleInputChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primaryColor focus:border-primaryColor sm:text-sm"
             placeholder="Enter your email"
+            required
+          />
+        </div>
+
+         {/* Email Input */}
+         <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            Phone No
+          </label>
+          <input
+            type="phone"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primaryColor focus:border-primaryColor sm:text-sm"
+            placeholder="Enter your phone"
             required
           />
         </div>

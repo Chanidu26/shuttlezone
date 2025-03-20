@@ -71,9 +71,10 @@ export const updateCourt = async (req, res, next) => {
       if (!court) return next(createError(404, "Court not found"));
         
       //here we are checking if the owner of the court is the same as the user who is updating the court
-      if (court.owner.toString() !== req.user.id) {
+      if (court.owner.toString() !== req.userId) {
         return next(createError(403, "You can only update your own courts"));
       }
+      console.log(req.body);
       
       const updates = req.body;
       //here we assign the updates to the court

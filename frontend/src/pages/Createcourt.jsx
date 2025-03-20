@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { authContext } from '../../src/context/AuthContext';
+import { authContext } from '../context/AuthContext';
 import {toast} from 'react-toastify'
 import Swal from 'sweetalert2';
 import uploadImageToCloudinary from '../utils/uploadCloudinary';

@@ -41,6 +41,7 @@ const BookingPayment = () => {
         icon: 'success',
       });
       bookCourt();
+      
     } catch (error) {
       Swal.fire({
         title: 'Payment Failed',

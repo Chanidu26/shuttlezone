@@ -113,6 +113,7 @@ const CourtDetails = () => {
   if (!courtData) {
     return <div className="max-w-[1200px] px-5 pt-10 mx-auto">Error loading court data</div>;
   }
+  console.log(courtData.owner)
 
   return (
     <section className="max-w-[1200px] px-5 pt-10 mx-auto">
@@ -180,6 +181,8 @@ const CourtDetails = () => {
               Open in Google map
             </a>
           </p>
+          <p className="text-lg text-gray-600 mb-1">Owner: <span className='font-bold text-primaryColor'>{courtData.owner.name}</span></p>
+          <p className="text-lg text-gray-600 mb-1">Contact: <span className='font-bold text-primaryColor'>{courtData.owner.phone}</span></p>
         </div>
       </div>
 
