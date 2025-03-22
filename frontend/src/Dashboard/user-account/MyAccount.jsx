@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import userImg from '../../assets/images/avatar-icon.png';
+import userImg from '../../assets/images/avatar-icon.jpg';
 import Profile from './Profile';
 import MyCourts from './MyCourts';
 import MyBookings from './MyBookings';
@@ -29,7 +29,7 @@ const MyAccount = () => {
         <div className='bg-white shadow-lg p-6 rounded-lg'>
           <div className='flex flex-col items-center'>
             <figure className='w-[80px] h-[80px] lg:w-[100px] lg:h-[100px] rounded-full border-4 border-primaryColor overflow-hidden'>
-              <img src={userData.photo} alt="user photo" className='w-full h-full object-cover' />
+              <img src={userData.photo || userImg} alt="user photo" className='w-full h-full object-cover' />
             </figure>
             <h3 className='mt-4 text-xl font-semibold text-headingColor'>{userData.name}</h3>
             <p className='text-gray-600 text-sm'></p>

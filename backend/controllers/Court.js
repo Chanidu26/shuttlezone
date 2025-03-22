@@ -10,7 +10,7 @@ export const createCourt = async (req, res, next) => {
       //req.user.id is the id of the user who is logged in  
       const { name, location,  price, description,owner, availableDates, images, googlemaplink} = req.body;
       //create a new court
-      const newCourt = new Court({
+      const newCourt = new Court({ 
         name,
         location,
         owner,
@@ -55,7 +55,7 @@ export const getCourts = async (req, res, next) => {
 export const getCourtById = async (req, res, next) => {
     try {
       //this below line will populate the owner field of each court with the name and email of the owner
-      const court = await Court.findById(req.params.id).populate("owner", "name email");
+      const court = await Court.findById(req.params.id).populate("owner", "name email phone");
       if (!court) return next(createError(404, "Court not found"));
       return res.status(200).json(court);
     } catch (error) {

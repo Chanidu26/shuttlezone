@@ -6,6 +6,7 @@ import { createBooking,
         deleteBooking,
         getAvailableCourts,
         getCourtDetails,
+        getCourtAppointments,
  } from "../controllers/Booking.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
@@ -18,5 +19,6 @@ router.put("/:id", verifyToken, updateBooking);
 router.delete("/:id", verifyToken, deleteBooking);
 router.get('/available-courts', getAvailableCourts);
 router.get('/court-details/:courtId', getCourtDetails);
+router.get('/court-appointments/:courtId', verifyToken, getCourtAppointments);
 
 export default router;

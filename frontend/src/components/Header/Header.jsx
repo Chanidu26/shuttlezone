@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useRef } from 'react';
 import logo from '../../assets/images/logo.png';
 import { NavLink, Link } from 'react-router-dom';
-import userImg from '../../assets/images/avatar-icon.png';
+import userImg from '../../assets/images/avatar-icon.jpg';
 import { BiMenu } from 'react-icons/bi';
 import { authContext } from '../../context/AuthContext';
 import useGetProfile from '../../hooks/useFetchData';

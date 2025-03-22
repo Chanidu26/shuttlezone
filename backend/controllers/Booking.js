@@ -4,7 +4,7 @@ import { createError } from "../error.js";
 
 export const createBooking = async (req, res, next) => {
     try {
-        const { courtId, date, slots, userId } = req.body;
+        const { courtId, date, slots, userId, price } = req.body;
     
         // Create booking record in the database
         const booking = new Booking({
@@ -12,6 +12,7 @@ export const createBooking = async (req, res, next) => {
           date,
           times: slots,
           user: userId,
+          price,
           status: 'Confirmed',
         });
         await booking.save();
@@ -122,29 +123,47 @@ export const updateBooking = async (req, res, next) => {
 
 export const deleteBooking = async (req, res, next) => {
     try {
-        // bookingId is the id of the booking to be deleted
         const bookingId = req.params.id;
 
-        // check if the booking exists
+        // Check if the booking exists
         const booking = await Booking.findById(bookingId);
         if (!booking) {
             return next(createError(404, "Booking not found"));
         }
 
-        // check if the booking belongs to the current user
-        if (booking.user.toString() !== req.user.id) {
-            return next(createError(403, "You can only delete your own bookings"));
+        // Check if the booking belongs to the current user
+        if (booking.user.toString() !== req.userId) {
+            return next(createError(403, "You can only cancel your own bookings"));
         }
 
-        // delete the booking
-        // check this delete method
-        // if remove not working then use findByIdAndDelete
-        await booking.remove();
-        return res.status(200).json({ message: "Booking deleted successfully" });
+        // Find the related court
+        const court = await Court.findById(booking.court);
+        if (!court) {
+            return next(createError(404, "Court not found"));
+        }
+
+        // Re-add the canceled booking time slots to the court's available times
+        const { date, times } = booking;
+        const courtAvailability = court.availableDates.find(a => 
+            new Date(a.date).toISOString().split('T')[0] === new Date(date).toISOString().split('T')[0]
+        );
+
+        if (courtAvailability) {
+            // Merge time slots while ensuring uniqueness
+            courtAvailability.times = Array.from(new Set([...courtAvailability.times, ...times])).sort();
+        }
+
+        await court.save();
+
+        // Delete the booking
+        await booking.deleteOne(); // Use deleteOne() instead of remove()
+
+        return res.status(200).json({ message: "Booking canceled successfully, time slots restored" });
     } catch (error) {   
         return next(error);
     }
 };
+
 
 export const getAvailableCourts = async (req, res, next) => {  
     // Get available courts for the given date and time slot
@@ -187,5 +206,21 @@ export const getCourtDetails = async (req, res, next) => {
         return next(error);
     }
 }
+
+export const getCourtAppointments = async (req, res) => {
+    try {
+        const { courtId } = req.params; // Get the court ID from request parameters
+
+        const appointments = await Booking.find({ court: courtId })
+            .populate("user", "name email phone") // Fetch user details (name, email)
+            .select("user date times status price") // Select required fields
+            .sort({ date: 1, times: 1 }); // Sort by date and time
+
+        res.status(200).json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching court appointments", error });
+    }
+};
+
 
 

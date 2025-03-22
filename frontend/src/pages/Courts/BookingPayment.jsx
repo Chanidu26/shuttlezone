@@ -19,6 +19,7 @@ const BookingPayment = () => {
         userId: user._id,
         date,
         slots,
+        price,
       });
       console.log(response.data);
     } catch (error) {

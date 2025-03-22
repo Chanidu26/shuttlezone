@@ -62,7 +62,7 @@ const MyCourts = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen py-10">
+    <div className="bg-gray-100 min-h-screen py-5">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3">
           {mycourts.map((court) => (
@@ -78,24 +78,30 @@ const MyCourts = () => {
                 />
               </div>
               <h2 className="text-lg font-bold text-gray-700 mt-4">{court.name}</h2>
-              <p className="text-gray-500 mt-1">{court.location}</p>
-              <p className="text-gray-800 font-bold mt-2">{court.price} per 30 mins</p>
+              <p className="text-gray-500 ">{court.location}</p>
+              <div className="pt-3">
+                <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium border bg-green-100 text-green-800 border-green-300`}>
+                  Rs {court.price} Per 30 Mins
+                </span>
+              </div>
 
-              <div className='buttons flex flex-row gap-1'>
+              <div className='buttons flex flex-col'>
+                  <div className='flex flex-row gap-3'>
+                    <button
+                      className="bg-primaryColor text-white py-2 px-12 rounded-lg mt-4 transition-colors duration-300"
+                      onClick={() => handleUpdate(court._id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="bg-red-500 text-white py-2 px-12 rounded-lg mt-4 transition-colors duration-300"
+                      onClick={() => handleDelete(court._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                   <button
-                    className="bg-primaryColor text-white py-2 px-4 rounded-lg mt-4 transition-colors duration-300"
-                    onClick={() => handleUpdate(court._id)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="bg-red-500 text-white py-2 px-4 rounded-lg mt-4 transition-colors duration-300"
-                    onClick={() => handleDelete(court._id)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 transition-colors duration-300"
+                    className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-2 transition-colors duration-300"
                     onClick={() => handleAppointment(court._id)}
                   >
                     Appointments
