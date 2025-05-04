@@ -1,6 +1,7 @@
 import Booking from "../models/Booking.js";
 import Court from "../models/Court.js";
 import { createError } from "../error.js";
+import QRCode from 'qrcode';
 
 export const createBooking = async (req, res, next) => {
     try {
@@ -37,6 +38,41 @@ export const createBooking = async (req, res, next) => {
       } catch (error) {
         next(error);
       }
+};
+
+
+export const generateQrCode = async (req, res, next) => {
+  try {
+    const bookingId = req.params.id;
+
+    // Find the booking by ID
+    const booking = await Booking.findById(bookingId).populate('court', 'user');
+    if (!booking) {
+      return next(createError(404, 'Booking not found'));
+    }
+
+    // Check if the booking belongs to the current user
+    if (booking.user.toString() !== req.userId) {
+      return next(createError(403, 'You can only generate QR codes for your own bookings'));
+    }
+
+    // Generate QR code data (customize as needed)
+    const qrData = {
+      bookingId: booking._id,
+      courtName: booking.court.name,
+      price: booking.price,
+      date: booking.date,
+      times: booking.times,
+    };
+
+    // Convert the data to a QR code
+    const qrCode = await QRCode.toDataURL(JSON.stringify(qrData));
+
+    // Send the QR code as a response
+    res.status(200).json({ qrCode });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const getUserBookings = async (req, res, next) => {
@@ -156,7 +192,8 @@ export const deleteBooking = async (req, res, next) => {
         await court.save();
 
         // Delete the booking
-        await booking.deleteOne(); // Use deleteOne() instead of remove()
+        booking.status = "Cancelled";
+        await booking.save(); // Use deleteOne() instead of remove()
 
         return res.status(200).json({ message: "Booking canceled successfully, time slots restored" });
     } catch (error) {   

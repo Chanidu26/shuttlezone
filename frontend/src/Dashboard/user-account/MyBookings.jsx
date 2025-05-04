@@ -7,21 +7,22 @@ const MyBookings = ({ user }) => {
   //const bookings = user?.bookings || [];
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
   const [bookings, setBookings] = useState([])
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/api/booking`,{
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setBookings(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-      }
-    };
 
+  const fetchBookings = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/booking`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setBookings(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+    }
+  };
+
+  useEffect(() => {
     fetchBookings();
   }, []);
 
@@ -42,11 +43,33 @@ const MyBookings = ({ user }) => {
               text: 'Booking has been canceled successfully.',
               icon:'success',
             })
+      fetchBookings();
     }
     catch(error){
       console.error('Error of delete booking:', error);
     }
   }
+  const DownloadQrCode = async (bookingId) => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/booking/${bookingId}/qr`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+  
+      // Display the QR code in a modal or download it
+      const qrCodeUrl = response.data.qrCode;
+      const link = document.createElement('a');
+      link.href = qrCodeUrl;
+      link.setAttribute('download', `booking-${bookingId}-qrcode.png`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error('Error fetching QR code:', error);
+    }
+  };
 
   return (
     <div className="p-3">
@@ -73,7 +96,7 @@ const MyBookings = ({ user }) => {
                   </svg>
                   <div>
                     <span className="text-sm text-gray-500">Court Name</span>
-                    <p className="font-medium text-gray-800">{booking.court.name}</p>
+                    <p className="font-medium text-gray-800">{booking?.court?.name || "This Court doesnt exists"}</p>
                   </div>
                 </div>
 
@@ -120,12 +143,36 @@ const MyBookings = ({ user }) => {
                   </div>
                 </div>
 
-                <div className="pt-4 mt-2 border-t border-gray-100">
+                <div className="flex items-start">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <div>
+                    <span className="text-sm text-gray-500">Booking Status</span>
+                    <p
+                      className={`px-2 py-1 text-sm rounded-md ${
+                        booking.status === "Confirmed"
+                          ? "bg-green-50 text-green-900"
+                          : "bg-red-50 text-red-900"
+                      }`}
+                    >
+                      {booking.status}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-2 border-t border-gray-100 flex flex-row gap-3">
                   <button onClick={() => handleCancelBooking(booking._id)} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md transition-colors duration-200 flex items-center shadow-sm">
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                     Cancel Booking
+                  </button>
+                  <button onClick={() => DownloadQrCode(booking._id)} className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-md transition-colors duration-200 flex items-center shadow-sm">
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Download QR Code
                   </button>
                 </div>
               </div>

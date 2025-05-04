@@ -203,7 +203,11 @@ const CourtDetails = () => {
             <option value="">-- Select Date --</option>
             {courtData.availableDates.map((dateObj) => (
               <option key={dateObj.date} value={dateObj.date}>
-                {new Date(dateObj.date).toLocaleDateString()}
+                 {new Date(dateObj.date).toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  day: 'numeric',
+                  month: 'long',
+                })}
               </option>
             ))}
           </select>

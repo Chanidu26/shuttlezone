@@ -16,7 +16,9 @@ export const createPlatformReview = async (req, res) => {
 };
 export const getAllPlatformReviews = async (req, res) => {
     try {
-        const platformReviews = await Platformreview.find();
+        const platformReviews = await Platformreview.find()
+               .populate("user", "name photo")
+               .select("user date reviewText");
         return res.status(200).json(platformReviews);
     } catch (error) {
         return res.status(500).json({ error: "Failed to retrieve platform reviews" });

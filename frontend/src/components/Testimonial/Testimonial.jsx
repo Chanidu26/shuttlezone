@@ -89,18 +89,22 @@ const ReviewForm = ({ onClose, onReviewAdded }) => {
 const TestimonialCard = ({ review, isActive }) => {
   return (
     <div className={`transform transition-all duration-300 ${isActive ? 'scale-105' : 'scale-95 opacity-70'}`}>
-      <div className="p-12 px-20  hover:shadow-2xl transition-all duration-300 relative">
+      <div className="p-20  hover:shadow-2xl transition-all duration-300 relative">
         {/* Large decorative quote mark */}
         
         <div className="absolute -top-4 -left-2 text-8xl text-gray-200 font-serif leading-none">"</div>
         
         {/* Content container with proper z-index */}
-        <div className="relative z-10 px-24">
+        <div className="relative z-10 px-40">
           <div className="flex justify-between items-start mb-6">
             <div className="flex items-center space-x-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
-                {review.user?.name?.charAt(0) || 'U'}
-              </div>
+            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg overflow-hidden">
+              {review.user?.photo ? (
+                <img src={review.user.photo} alt="User" className="w-full h-full object-cover" />
+              ) : (
+                'U'
+              )}
+            </div>
               <div>
                 <h3 className="font-bold text-xl text-gray-800">
                   {review.user?.name || 'User'}
@@ -169,6 +173,7 @@ const Testimonial = () => {
   if (error) {
     return <div className="text-red-500 text-center py-4">{error}</div>;
   }
+  console.log(reviews)
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-3">
