@@ -50,6 +50,8 @@ const UpdateCourt = () => {
     
     fetchCourtData();
   }, [baseUrl, id, token]);
+
+  console.log(courtData)
   
   if (isLoading) {
     return <div className="flex justify-center items-center h-96">Loading...</div>;
@@ -290,10 +292,16 @@ const UpdateCourt = () => {
                 Add Date
               </button>
               <div className="mt-4 space-y-4">
-                {courtData.availableDates.map((date, index) => (
+                {courtData.availableDates.map((date, index) => {
+                  const formattedDate = new Date(date.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  });
+                  return ( 
                   <div key={index} className="p-4 border rounded-lg">
                     <div className="flex justify-between items-center">
-                      <div className="font-bold">{date.date}</div>
+                      <div className="font-bold">{formattedDate}</div>
                       <button
                         type="button"
                         onClick={() => removeDate(index)}
@@ -327,7 +335,8 @@ const UpdateCourt = () => {
                       Add Time Slots
                     </button>
                   </div>
-                ))}
+                  )
+               })}
               </div>
             </div>
 

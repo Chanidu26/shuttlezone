@@ -34,13 +34,27 @@ const Login = () => {
         },
       });
       
-      console.log(result)
+      /*console.log(result)
       Swal.fire({
               title: 'Login Sucessful',
               text: 'welcome to ShuttleZone. Login successful.',
               icon: 'success',
       });
       navigate('/home')
+      window.location.reload()*/
+
+      Swal.fire({
+        title: 'Login Successful',
+        text: 'Welcome to ShuttleZone. Login successful.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/home');
+          window.location.reload();
+        }
+      });
+
       
     }
     catch(err){

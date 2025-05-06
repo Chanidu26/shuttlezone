@@ -10,7 +10,7 @@ const CourtCard = ({ court, onBook }) => {
   };
 
   return (
-    <div className="p-3 rounded-lg lg:p-2 hover:scale-105 bg-gray-200 hover:shadow-lg transition-all duration-300">
+    <div className="p-3 rounded-xl lg:p-2 hover:scale-105 bg-gray-200 hover:shadow-lg transition-all duration-300">
       <div className="w-full h-[200px] overflow-hidden rounded-md">
         <img src={images[0]} className="w-full h-full object-cover" alt={name} />
       </div>
@@ -28,7 +28,7 @@ const CourtCard = ({ court, onBook }) => {
       </div>
       
       <button
-        className="bg-primaryColor text-white py-2 px-4 rounded mt-2 mb-2 ml-2"
+        className="bg-primaryColor text-white py-2 px-5 rounded-lg mt-2 mb-2 ml-2"
         onClick={handleBooking}
       >
         Book Now

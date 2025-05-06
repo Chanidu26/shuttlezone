@@ -25,7 +25,7 @@ import MyAccount from '../Dashboard/user-account/MyAccount'
 import Createcourt from '../Pages/Createcourt'
 import Updatecourt from '../Pages/Updatecourt'
 import Court_Appointments from '../Pages/Court_Appointments'
-
+import VerifyEmail from '../Pages/VerifyEmail'
 const Routers = () => {
   return <Routes>
       <Route path='/' element={<Home/>}/>
@@ -41,6 +41,7 @@ const Routers = () => {
       <Route path= '/court/booking' element={<BookingPayment/>}/>
       <Route path='/court/update/:id' element={<Updatecourt/>}/>
       <Route path='/court/appointments/:id' element={<Court_Appointments/>}/>
+      <Route path='/verify-email/:token' element={<VerifyEmail/>}/>
     </Routes>
 }
 

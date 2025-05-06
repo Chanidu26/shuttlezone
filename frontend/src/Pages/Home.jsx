@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState, useEffect } from 'react' 
 import court1 from '../assets/images/court1.jpg'
 import court3 from '../assets/images/court3.jpg'
 import court2 from '../assets/images/court2.jpg'
@@ -15,6 +16,41 @@ import ServiceList from '../components/Services/ServiceList'
 import Testimonial from '../components/Testimonial/Testimonial'
 const Home = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const [courtCount, setCourtCount] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+  const [experienceCount, setExperienceCount] = useState(0);
+
+  useEffect(() => {
+    // Counter animation
+    const courtInterval = setInterval(() => {
+      setCourtCount(prev => {
+        if (prev < 100) return prev + 3;
+        clearInterval(courtInterval);
+        return 100;
+      });
+    }, 20);
+    
+    const userInterval = setInterval(() => {
+      setUserCount(prev => {
+        if (prev < 300) return prev + 3;
+        clearInterval(userInterval);
+        return 300;
+      });
+    }, 20);
+    
+    const expInterval = setInterval(() => {
+      setExperienceCount(prev => {
+        if (prev < 100) return prev + 1;
+        clearInterval(expInterval);
+        return 100;
+      });
+    }, 20);
+    return () => {
+      clearInterval(courtInterval);
+      clearInterval(userInterval);
+      clearInterval(expInterval);
+    };
+  }, []);
   return (
     <>
     {/* hero section */}
@@ -31,25 +67,25 @@ const Home = () => {
               <button className='btn'>Book a Court Now</button>
             </Link>
           </div>
-          <div className='mt-[30px] lg:mt-[30px] flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-[30px]'>
+          <div className='mt-[30px] lg:mt-[50px] flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-[30px]'>
 
             <div>
               <h2 className='text-[36px] leading-[56px] lg:text-[30px] lg:leading-[54px] font-[700]
-               text-white'>300+</h2>
+               text-white'>{courtCount}+</h2>
                <span className='w-[100px] h-2 bg-red-700 Crounded-full block mt-[-14px]'></span>
                <p className='text_para'>Courts</p>
             </div>
 
             <div>
               <h2 className='text-[36px] leading-[56px] lg:text-[30px] lg:leading-[54px] font-[700]
-               text-white'>300+</h2>
+               text-white'>{userCount}+</h2>
                <span className='w-[100px] h-2 bg-purpleColor rounded-full block mt-[-14px]'></span>
                <p className='text_para'>Users</p>
             </div>
 
             <div>
               <h2 className='text-[36px] leading-[56px] lg:text-[30px] lg:leading-[54px] font-[700]
-               text-white'>100%</h2>
+               text-white'>{experienceCount} %</h2>
                <span className='w-[100px] h-2 bg-irisBlueColor rounded-full block mt-[-14px]'></span>
                <p className='text_para'>Experience</p>
             </div>*

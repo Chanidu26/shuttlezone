@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { useContext } from 'react';
 import Swal from 'sweetalert2';
@@ -26,7 +27,9 @@ const BookingPayment = () => {
       console.error(error);
     }
   };
-
+  useEffect(() => {
+      window.scrollTo(0, 0);
+  }, []);
   const handleToken = async (token) => {
     try {
       const stripeToken = {

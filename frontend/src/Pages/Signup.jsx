@@ -29,7 +29,7 @@ const Signup = () => {
         throw new Error(result.message)
       }
       /*toast.success(result.message)*/
-      toast.success("Registration Successfull")
+      toast.success("Registration Successfull and please verify your email")
       navigate('/login')
       
       
@@ -99,6 +99,9 @@ const Signup = () => {
                  Register
                 </button>
               </form>
+              <p className="text-sm text-gray-500 mt-4">
+                After registration, you will receive an email to verify your account. Please check your inbox.
+              </p>
               <p className='text_para text-center'>You already have account? <a className='text-primaryColor' href='/login'>Login</a>'</p>
           </div>
 
