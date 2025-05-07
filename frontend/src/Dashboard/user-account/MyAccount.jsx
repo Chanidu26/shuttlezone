@@ -8,7 +8,7 @@ import useGetProfile from '../../hooks/useFetchData';
 import Loading from '../../components/Loader/Loading';
 const MyAccount = () => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
-  const [tab, setTab] = useState("courts");
+  const [tab, setTab] = useState("settings");
   const { dispatch } = useContext(authContext);
  
 

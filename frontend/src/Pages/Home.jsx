@@ -32,15 +32,15 @@ const Home = () => {
     
     const userInterval = setInterval(() => {
       setUserCount(prev => {
-        if (prev < 300) return prev + 3;
+        if (prev < 100) return prev + 3;
         clearInterval(userInterval);
-        return 300;
+        return 100;
       });
     }, 20);
     
     const expInterval = setInterval(() => {
       setExperienceCount(prev => {
-        if (prev < 100) return prev + 1;
+        if (prev < 100) return prev + 3;
         clearInterval(expInterval);
         return 100;
       });
@@ -73,21 +73,21 @@ const Home = () => {
               <h2 className='text-[36px] leading-[56px] lg:text-[30px] lg:leading-[54px] font-[700]
                text-white'>{courtCount}+</h2>
                <span className='w-[100px] h-2 bg-red-700 Crounded-full block mt-[-14px]'></span>
-               <p className='text_para'>Courts</p>
+               <p className='text_para text-slate-50'>Courts</p>
             </div>
 
             <div>
               <h2 className='text-[36px] leading-[56px] lg:text-[30px] lg:leading-[54px] font-[700]
                text-white'>{userCount}+</h2>
                <span className='w-[100px] h-2 bg-purpleColor rounded-full block mt-[-14px]'></span>
-               <p className='text_para'>Users</p>
+               <p className='text_para text-slate-50'>Users</p>
             </div>
 
             <div>
               <h2 className='text-[36px] leading-[56px] lg:text-[30px] lg:leading-[54px] font-[700]
                text-white'>{experienceCount} %</h2>
                <span className='w-[100px] h-2 bg-irisBlueColor rounded-full block mt-[-14px]'></span>
-               <p className='text_para'>Experience</p>
+               <p className='text_para text-slate-50'>Experience</p>
             </div>*
 
 

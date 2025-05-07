@@ -1,6 +1,7 @@
 import Booking from "../models/Booking.js";
 import Court from "../models/Court.js";
 import { createError } from "../error.js";
+import nodemailer from "nodemailer";
 import QRCode from 'qrcode';
 
 export const createBooking = async (req, res, next) => {
@@ -28,6 +29,61 @@ export const createBooking = async (req, res, next) => {
             },
             { new: true } // Return updated document
         );
+
+        const qrData = {
+            bookingId: booking._id,
+            courtName: court.name,
+            price: booking.price,
+            date: booking.date,
+            times: booking.times,
+          };
+      
+        const qrCode = await QRCode.toDataURL(JSON.stringify(qrData));
+      
+          // Send QR code to user's email
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: process.env.EMAIL_USER, // Your email address
+              pass: process.env.EMAIL_PASS, // Your email password or app password
+            },
+        });
+        const populatedBooking = await Booking.findById(booking._id).populate('user');
+        console.log(populatedBooking.user.email, 'populatedBooking.user.email')
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: populatedBooking.user.email,
+            subject: "Your Booking Confirmation",
+            html: `
+              <p>Thank you for booking with us!</p>
+              <p>Here are your booking details:</p>
+              <ul>
+                <li><strong>Booking ID:</strong> ${booking._id}</li>
+                <li><strong>Court Name:</strong> ${court.name}</li>
+                <li><strong>Date:</strong> ${new Date(booking.date).toLocaleDateString()}</li>
+                <li><strong>Times:</strong> ${booking.times.join(", ")}</li>
+                <li><strong>Price:</strong> $${booking.price}</li>
+              </ul>
+              <p>Your QR code is attached to this email. To download:</p>
+              <ol>
+                <li>Right-click on the image below</li>
+                <li>Select "Save Image As..."</li>
+                <li>Choose a location on your device and save</li>
+              </ol>
+              <p><img src="cid:qrcode" alt="QR Code" style="width: 200px; height: 200px;" /></p>
+            `,
+            attachments: [
+              {
+                filename: 'booking-qrcode.png',
+                content: qrCode.split('base64,')[1],
+                encoding: 'base64',
+                cid: 'qrcode'
+              }
+            ]
+        };
+      
+        await transporter.sendMail(mailOptions);
 
     
         res.status(201).json({
